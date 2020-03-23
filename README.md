@@ -1,19 +1,19 @@
-## gRPC + REST Gateway Play
 
-Blog post: https://coreos.com/blog/gRPC-protobufs-swagger.html
+1 go get github.com/philips/grpc-gateway-example
 
-To try it all out do this:
+2 设置用户环境变量代理解决go get 慢问题
+GOPROXY=https://goproxy.io
+GO111MODULE=on
 
-```
-$ go get -u github.com/philips/grpc-gateway-example
-$ grpc-gateway-example serve
-$ grpc-gateway-example echo "my first rpc echo"
-$ curl -X POST -k https://localhost:10000/v1/echo -H "Content-Type: text/plain" -d '{"value": "foo"}'
-{"value":"my REST echo"}
-```
+3 下载proto3.6.1
+https://github.com/protocolbuffers/protobuf/releases 
+protoc 复制 到d:\gopath\bin  google复制到planet\echopb
+echopb有脚本生成pb
 
+4 
+go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
+go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-swagger
+go get -u github.com/golang/protobuf/protoc-gen-go
+go get -u github.com/envoyproxy/protoc-gen-validate
 
-Huge thanks to the hard work people have put into the [Go gRPC bindings][gogrpc] and [gRPC to JSON Gateway][grpcgateway]
-
-[gogrpc]: https://github.com/grpc/grpc-go
-[grpcgateway]: https://github.com/grpc-ecosystem/grpc-gateway
+go run main.go serve 10000
