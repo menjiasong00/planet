@@ -1,9 +1,11 @@
 
-1 go get github.com/philips/grpc-gateway-example
+1 go get github.com/menjiasong00/planet
 
-2 设置用户环境变量代理解决go get 慢问题
+2打开go mod: $Env:GO111MODULE="on" 可以设置用户环境变量代理解决go get 慢问题:
+
 GOPROXY=https://goproxy.io
 GO111MODULE=on
+
 
 3 下载proto3.6.1
 https://github.com/protocolbuffers/protobuf/releases 
@@ -17,3 +19,7 @@ go get -u github.com/golang/protobuf/protoc-gen-go
 go get -u github.com/envoyproxy/protoc-gen-validate
 
 go run main.go serve 10000
+
+
+调用连
+docker run -d -p6831:6831/udp -p16686:16686 jaegertracing/all-in-one:latest

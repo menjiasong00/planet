@@ -3,25 +3,36 @@ package cmd
 import (
 	"crypto/tls"
 	"fmt"
+	"github.com/grpc-ecosystem/go-grpc-middleware"
+	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
+	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
+	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
+	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
+	"google.golang.org/grpc/grpclog"
 	"io"
 	"log"
 	"mime"
 	"net"
 	"net/http"
-	"strings"
 	"reflect"
 	"strconv"
-	
+	"strings"
+	"time"
+
 	"planet/config/srvs"
-	
-	"planet/pkg/ui/data/swagger"
-	//"github.com/grpc-ecosystem/go-grpc-middleware"
+
 	"github.com/grpc-ecosystem/grpc-gateway/runtime"
 	"github.com/philips/go-bindata-assetfs"
 	"github.com/spf13/cobra"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
+	"planet/pkg/ui/data/swagger"
+
+	opentracing "github.com/opentracing/opentracing-go"
+	jaeger "github.com/uber/jaeger-client-go"
+	jaegerCfg "github.com/uber/jaeger-client-go/config"
+	"github.com/g4zhuj/grpc-wrapper/plugins"
 
 	pb "planet/pb"
 )
@@ -87,7 +98,13 @@ func serve(args []string) {
 	//启动GRPC服务
 	opts := []grpc.ServerOption{
 		grpc.Creds(credentials.NewClientTLSFromCert(demoCertPool, "localhost:"+strconv.Itoa(int(portHost))))}
-/* 
+ 
+ 	//open tracing
+	tracer, _, err2 := NewJaegerTracer("test")
+	if err2 != nil {
+		grpclog.Errorf("new tracer err %v , continue", err2)
+	}
+ 
 	opts = append(opts,grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
         grpc_ctxtags.StreamServerInterceptor(),
         grpc_opentracing.StreamServerInterceptor(),
@@ -100,12 +117,13 @@ func serve(args []string) {
 	opts = append(opts,grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
         grpc_ctxtags.UnaryServerInterceptor(),
         grpc_opentracing.UnaryServerInterceptor(),
+		plugins.OpentracingServerInterceptor(tracer),
         //grpc_prometheus.UnaryServerInterceptor,
         //grpc_zap.UnaryServerInterceptor(zapLogger),
         grpc_auth.UnaryServerInterceptor(authCheck),
         grpc_recovery.UnaryServerInterceptor(),
     )))
- */
+ 
     
 
 	grpcServer := grpc.NewServer(opts...)
@@ -188,4 +206,31 @@ func serve(args []string) {
 func authCheck(ctx context.Context) (context.Context,error){
 	fmt.Println("login check function")
 	return ctx,nil
+}
+
+
+//NewJaegerTracer New Jaeger for opentracing
+func NewJaegerTracer(serviceName string) (tracer opentracing.Tracer, closer io.Closer, err error) {
+	cfg := jaegerCfg.Configuration{
+		Sampler: &jaegerCfg.SamplerConfig{
+			Type:  "const",
+			Param: 1,
+		},
+		Reporter: &jaegerCfg.ReporterConfig{
+			LogSpans:            true,
+			BufferFlushInterval: 1 * time.Second,
+			LocalAgentHostPort:  "localhost:6831",
+		},
+	}
+	tracer, closer, err = cfg.New(
+		serviceName,
+		jaegerCfg.Logger(jaeger.StdLogger),
+	)
+	//defer closer.Close()
+
+	if err != nil {
+		return
+	}
+	opentracing.SetGlobalTracer(tracer)
+	return
 }
