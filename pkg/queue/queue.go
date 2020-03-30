@@ -17,6 +17,8 @@ const (
 	portConfig = "5672"
 	userConfig = "guest"
 	PasswordConfig = "guest"
+	//JobReceiversList = map[string]JobReceivers{"TestJob": jobs.TestJob{}}
+	
 )
 
 func SetConfig (config map[string]string) {
@@ -26,7 +28,10 @@ func SetConfig (config map[string]string) {
 	PasswordConfig = config[3]
 }
 
-var wlog *logrus.Logger
+var (
+	wlog *logrus.Logger
+	
+)
 
 //Queue 队列结构体
 type Queue struct {
@@ -88,6 +93,13 @@ func (q *Queue) SetPriority(priority string) *Queue {
 	return q
 }
 
+
+//Job 工作队列
+type JobReceivers interface {
+	Execute(interface{}) error //执行任务
+}
+
+
 //Push 工作队列模式 1、jobName工作名 2、data数据
 func (q *Queue) Push(jobName string, data interface{}) error {
 
@@ -136,7 +148,7 @@ func (q *Queue) Push(jobName string, data interface{}) error {
 }
 
 //Listen 工作队列监听 1、队列名queueName
-func (q *Queue) Listen() error {
+func (q *Queue) Listen(Jobs map[string]JobReceivers{}) error {
 
 	if q.err != nil {
 		return q.err
@@ -237,6 +249,14 @@ func bytesToString(b *[]byte) *string {
 	return &r
 }
 
+//topic接口
+type TopicReceivers interface {
+	GetQueueName() string
+	GetRoutingKeys() []string
+	Execute(routingKey string, data interface{}) error
+}
+
+
 //TopicPush  1、路由名 2、数据
 func (q *Queue) TopicPush(routingKey string, data interface{}) error {
 
@@ -282,7 +302,7 @@ func (q *Queue) TopicPush(routingKey string, data interface{}) error {
 
 //监听：queue.New().TopicListen(topic.Task{})
 //TopicListen  队列监听 传入参数必须是topic类型的接口才可监听
-func (q *Queue) TopicListen(t topic.Topic) error {
+func (q *Queue) TopicListen(t TopicReceivers) error {
 
 	if q.err != nil {
 		return q.err
