@@ -7,7 +7,7 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/auth"
 	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
-	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
+	//"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
 	"google.golang.org/grpc/grpclog"
 	"io"
 	"log"
@@ -61,12 +61,9 @@ func newServer() *myService {
 	return new(myService)
 }
 
-// grpcHandlerFunc returns an http.Handler that delegates to grpcServer on incoming gRPC
-// connections or otherHandler otherwise. Copied from cockroachdb.
+
 func grpcHandlerFunc(grpcServer *grpc.Server, otherHandler http.Handler) http.Handler {
 	return http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		// TODO(tamird): point to merged gRPC code rather than a PR.
-		// This is a partial recreation of gRPC's internal checks https://github.com/grpc/grpc-go/pull/514/files#diff-95e9a25b738459a2d3030e1e6fa2a718R61
 		if r.ProtoMajor == 2 && strings.Contains(r.Header.Get("Content-Type"), "application/grpc") {
 			grpcServer.ServeHTTP(w, r)
 		} else {
@@ -78,7 +75,6 @@ func grpcHandlerFunc(grpcServer *grpc.Server, otherHandler http.Handler) http.Ha
 func serveSwagger(mux *http.ServeMux) {
 	mime.AddExtensionType(".svg", "image/svg+xml")
 
-	// Expose files in third_party/swagger-ui/ on <host>/swagger-ui
 	fileServer := http.FileServer(&assetfs.AssetFS{
 		Asset:    swagger.Asset,
 		AssetDir: swagger.AssetDir,
@@ -107,21 +103,22 @@ func serve(args []string) {
  
 	opts = append(opts,grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
         grpc_ctxtags.StreamServerInterceptor(),
-        grpc_opentracing.StreamServerInterceptor(),
+        //grpc_opentracing.StreamServerInterceptor(),
         //grpc_prometheus.StreamServerInterceptor,
         //grpc_zap.StreamServerInterceptor(zapLogger),
-        grpc_auth.StreamServerInterceptor(authCheck),
+        grpc_auth.StreamServerInterceptor(AuthCheck),
         grpc_recovery.StreamServerInterceptor(),
     )))
 	
 	opts = append(opts,grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
         grpc_ctxtags.UnaryServerInterceptor(),
-        grpc_opentracing.UnaryServerInterceptor(),
+        //grpc_opentracing.UnaryServerInterceptor(),
 		plugins.OpentracingServerInterceptor(tracer),
         //grpc_prometheus.UnaryServerInterceptor,
         //grpc_zap.UnaryServerInterceptor(zapLogger),
-        grpc_auth.UnaryServerInterceptor(authCheck),
+        grpc_auth.UnaryServerInterceptor(AuthCheck),
         grpc_recovery.UnaryServerInterceptor(),
+		//Validate(),    //公共表单验证
     )))
  
     
@@ -155,7 +152,7 @@ func serve(args []string) {
 		io.Copy(w, strings.NewReader(pb.Swagger))
 	})
 
-	gwmux := runtime.NewServeMux()
+	gwmux := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{OrigName: true, EmitDefaults: true}))
 	err := pb.RegisterEchoServiceHandlerFromEndpoint(ctx, gwmux, demoAddr, dopts)
 	
 	//把server注册HTTP
@@ -202,14 +199,30 @@ func serve(args []string) {
 	return
 }
 
-//鉴权验证
-func authCheck(ctx context.Context) (context.Context,error){
+//AuthCheck 鉴权验证
+func AuthCheck(ctx context.Context) (context.Context,error){
 	fmt.Println("login check function")
 	return ctx,nil
 }
 
+//表单验证
+func   Validate() grpc.UnaryServerInterceptor {
+	return func(ctx context.Context, req interface{}, args *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
+		out := reflect.ValueOf(req).MethodByName("Validate").Call(make([]reflect.Value, 0))
+		if len(out)>0 {
+			if out[0].Interface()!=nil {
+				err = out[0].Interface().(error)
+			}
+		}
+ 		if   err!=nil {
+ 			return nil,err
+		}
+		resp, err = handler(ctx, req)
+		return
+	}
+}
 
-//NewJaegerTracer New Jaeger for opentracing
+//NewJaegerTracer 初始化调用跟踪
 func NewJaegerTracer(serviceName string) (tracer opentracing.Tracer, closer io.Closer, err error) {
 	cfg := jaegerCfg.Configuration{
 		Sampler: &jaegerCfg.SamplerConfig{

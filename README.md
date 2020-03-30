@@ -1,5 +1,5 @@
 
-#1 planet是一个基于 grpc-gateway ,同时满足http和rpc的框架,集成了 微服务\接口文档\日志\认证\调用链等基础服务.你可以在这个基础上快速开发使用微服务
+#1 planet是一个基于 grpc-gateway ,同时满足http和rpc的框架,集成了 微服务\接口文档\日志\认证\调用链等基础服务.你可以在这个基础上快速开发使用微服务+http json接口
 
 git clone github.com/menjiasong00/planet
 
@@ -37,3 +37,20 @@ protoc 复制 到d:\gopath\bin  google复制到planet\echopb 有写好的脚本r
 docker run -d -p6831:6831/udp -p16686:16686 jaegertracing/all-in-one:latest
 
 访问http://127.0.0.1:16686/  
+
+
+
+#计划整合:
+
+Docker的图形化管理工具Portainer
+
+Docker的数据仓库harbor
+
+JWT
+
+dockerSwarm
+
+Exporter-系统监控Prometheus-可视化Grafana-Alerting
+
+
+

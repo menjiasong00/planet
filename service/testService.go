@@ -8,8 +8,8 @@ import(
 
 
 type TestServer struct{}
-
-func (m *TestServer) GetTestMsg(c context.Context, s *pb.TestMessage) (*pb.TestMessage, error) {
+func (m *TestServer) GetTestMsg(c context.Context, s *pb.TestReq) (*pb.TestResp, error) {
 	fmt.Printf("xxxxx(%q)\n", s.Value)
-	return s, nil
+	details := &pb.TestDetail{Value:s.Value}
+	return &pb.TestResp{Details:details}, nil
 }

@@ -3,12 +3,27 @@ package echopb;
 
 import "google/api/annotations.proto";
 
-message TestMessage {
- string value = 1;
+message TestReq {
+    string value =1;
 }
 
+message TestResp {
+    string error = 1;
+    string message = 2;
+    int32 code = 3;
+    TestDetail details = 4;
+
+}
+
+message TestDetail {
+    string value =1;
+}
+
+
+//测试
 service Test {
-  rpc GetTestMsg(TestMessage) returns (TestMessage) {
+    //测试方法
+  rpc GetTestMsg(TestReq) returns (TestResp) {
     option (google.api.http) = {
       get: "/v1/test"
     };
