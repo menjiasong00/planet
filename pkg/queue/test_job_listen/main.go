@@ -2,7 +2,7 @@ package main
 
 import (
 	"fmt"
-	que "rest/logs/queue"
+	que "planet/pkg/queue"
 )
 
 func main() {

@@ -163,7 +163,7 @@ func (q *Queue) Push(jobName string, data interface{}) error {
 }
 
 //Listen 工作队列监听 1、队列名queueName
-func (q *Queue) Listen(Jobs map[string]JobReceivers{}) error {
+func (q *Queue) Listen(Jobs map[string]JobReceivers) error {
 
 	if q.err != nil {
 		return q.err
