@@ -153,8 +153,8 @@ func (q *Queue) Push(jobName string, data interface{}) error {
 			Body:        []byte(body),
 			Priority:    uint8(priority),
 		})
-	//wlog.Info("推送消息：", queueBody)
-	//wlog.Info("队列名称：", q.JobQueueName)
+	//fmt.Println("推送消息：", queueBody)
+	//fmt.Println("队列名称：", q.JobQueueName)
 	if err != nil {
 		return err
 	}
@@ -204,7 +204,7 @@ func (q *Queue) Listen(Jobs map[string]JobReceivers) error {
 
 			m := make(map[string]interface{})
 			json.Unmarshal([]byte(*msg), &m)
-			//wlog.Info(" 收到消息 ：", m)
+			//fmt.Println(" 收到消息 ：", m)
 
 			//断言job值为string，才可用于map的key
 			if key, ok := m["job"].(string); ok {
@@ -212,7 +212,7 @@ func (q *Queue) Listen(Jobs map[string]JobReceivers) error {
 				if oneJob, ok := Jobs[key]; ok {
 					err := oneJob.Execute(m["data"])
 					if err == nil {
-						//wlog.Info("完成 ..")
+						//fmt.Println("完成 ..")
 					} else {
 						//错误处理
 						queue, errA := ch.QueueDeclare(
@@ -224,7 +224,7 @@ func (q *Queue) Listen(Jobs map[string]JobReceivers) error {
 							nil,        //arguments
 						)
 						if errA != nil {
-							//wlog.Error("错误队列绑定失败", errA)
+							//fmt.Errorf("错误队列绑定失败", errA)
 						}
 						body, _ := json.Marshal(map[string]interface{}{"job": m["job"].(string), "data": m["data"] , "err":err.Error()})
 						errB := ch.Publish(
@@ -237,9 +237,9 @@ func (q *Queue) Listen(Jobs map[string]JobReceivers) error {
 								ContentType: "text/plain",
 								Body:        []byte(body),
 							})
-						//wlog.Info("工作发生错误，错误队列推送消息：", m)
+						//fmt.Println("工作发生错误，错误队列推送消息：", m)
 						if errB != nil {
-							//wlog.Error("错误队列消息推送失败", errB)
+							//fmt.Errorf("错误队列消息推送失败", errB)
 						}
 					}
 					d.Ack(false)
@@ -250,7 +250,7 @@ func (q *Queue) Listen(Jobs map[string]JobReceivers) error {
 		}
 	}()
 
-	//wlog.Info(" 等待工作..")
+	//fmt.Println(" 等待工作..")
 	<-forever
 
 	q.Destroy()
@@ -310,7 +310,7 @@ func (q *Queue) TopicPush(routingKey string, data interface{}) error {
 	if err != nil {
 		return err
 	}
-	//wlog.Info(" 发送消息 %s , 路由名 %s", body, routingKey)
+	//fmt.Println(" 发送消息 %s , 路由名 %s", body, routingKey)
 	q.Destroy()
 	return nil
 
@@ -385,11 +385,11 @@ func (q *Queue) TopicListen(t TopicReceivers) error {
 
 			dataMap := make(map[string]interface{})
 			json.Unmarshal([]byte(*msg), &dataMap)
-			//wlog.Info(" 收到消息 %s", dataMap)
+			//fmt.Println(" 收到消息 %s", dataMap)
 
 			err := t.Execute(d.RoutingKey, dataMap["data"])
 			if err == nil {
-				//wlog.Info("完成 ..")
+				//fmt.Println("完成 ..")
 			} else {
 
 				//错误处理
@@ -404,7 +404,7 @@ func (q *Queue) TopicListen(t TopicReceivers) error {
 					nil,                       //arguments
 				)
 				if err != nil {
-					//wlog.Error("错误队列绑定失败，", err)
+					//fmt.Errorf("错误队列绑定失败，", err)
 				}
 
 				body, _ := json.Marshal(dataMap)
@@ -419,19 +419,153 @@ func (q *Queue) TopicListen(t TopicReceivers) error {
 						Body:        []byte(body),
 					})
 				if err != nil {
-					//wlog.Error("错误队列消息推送失败", err)
+					//fmt.Errorf("错误队列消息推送失败", err)
 				}
 
-				//wlog.Info("工作发生错误,错误队列推送消息：", dataMap)
+				//fmt.Println("工作发生错误,错误队列推送消息：", dataMap)
 			}
 			d.Ack(false)
 
 		}
 	}()
 
-	//wlog.Info("等待工作...")
+	//fmt.Println("等待工作...")
 	<-forever
 
 	q.Destroy()
 	return nil
 }
+
+
+
+/* 
+
+
+//Pub 1、交换机 2、路由名 3、数据
+func (q *Queue) Publish(exchangeName string,routingKey string, data interface{}) error {
+
+	//如果没规划channel ,创建channel
+	//q.MakeChannel()
+
+	if q.err != nil {
+		return q.err
+	}
+	ch := q.channel
+
+	queueHeader := make(map[string]interface{},5)
+	//queueHeader["retry"] = int32(0)
+	queueHeader["routing"] = routingKey
+	queueHeader["exchange"] = routingKey
+
+	body, _ := json.Marshal(data)
+	err := ch.Publish(
+		exchangeName, // exchange
+		routingKey,          // routing key
+		false,               // mandatory
+		false,               // immediate
+		amqp.Publishing{
+			DeliveryMode: amqp.Persistent, //持久化
+			ContentType: "text/plain",
+			Body:        []byte(body),
+			Headers:queueHeader,
+		})
+	if err != nil {
+		return err
+	}
+	//
+	log.Printf(" 发送消息 %s , 路由名 %s ，交换机  %s", body, routingKey,exchangeName)
+	q.Destroy()
+	return nil
+
+}
+
+
+//配置项
+type ReceiverConfig struct {
+	//流控
+	PrefetchCount int
+	PrefetchSize int
+	Global bool
+	//策略
+	XCancelOnHaFailover bool
+
+	//错误后是否ack
+	ErrorAck bool
+}
+
+
+//ConsumerListenService  队列Service监听 执行  service服务的funcName方法
+func (q *Queue) Consumer(queueName string, service interface{},funcName string, request interface{},rConfig ReceiverConfig) error {
+
+	//如果没规划channel ,创建channel
+	//q.MakeChannel()
+
+	if q.err != nil {
+		return q.err
+	}
+	ch := q.channel
+
+	//解析接收者 配置
+	ch.Qos(rConfig.PrefetchCount,0,false)
+	var args = make(amqp.Table,10)
+	args["x-cancel-on-ha-failover"] = rConfig.XCancelOnHaFailover
+
+	msgs, err := ch.Consume(
+		queueName, // queue
+		"",         // consumer
+		false,      // auto ack
+		false,      // exclusive
+		false,      // no local
+		false,      // no wait
+		args,        // args
+	)
+	if err != nil {
+		return err
+	}
+
+	forever := make(chan bool)
+
+	go func() {
+		for d := range msgs {
+			msg := bytesToString(&(d.Body))
+			log.Printf(" 收到消息 %s", *msg)
+
+			//把消息解析进pb的request
+			json.Unmarshal([]byte(*msg), request)
+
+			//反射service服务并执行funcName方法，请求是ctx,request
+			params:= make([]reflect.Value, 2)
+			ctx := context.Background()
+			params[0] = reflect.ValueOf(ctx)
+			params[1] = reflect.ValueOf(request)
+			out := reflect.ValueOf(service).MethodByName(funcName).Call(params)
+
+			//如果执行return error，则记录错误
+			if len(out)>1 {
+				if out[1].Interface()!=nil {
+					err = out[1].Interface().(error)
+				}
+			}
+
+			//一条消息执行结束
+			if err == nil {
+				//成功
+				d.Ack(false)
+				log.Printf("完成 : %s",funcName)
+			} else {
+				//错误
+				if rConfig.ErrorAck == true {
+					d.Ack(false)
+				}
+				log.Printf("消费者发生错误 ： %s", err.Error())
+			}
+
+		}
+	}()
+
+	fmt.Println( "等待工作..." )
+	<-forever
+
+	q.Destroy()
+	return nil
+} */
