@@ -437,7 +437,16 @@ func (q *Queue) TopicListen(t TopicReceivers) error {
 }
 
 
-
+/* 
+	var ServicesMap = make(map[string][]interface{})
+	ServicesMap["wt_queue"] = []interface{}{"wt_queue",&service.AccountServer{},"SalSalary",&pb.AuthCheckRequest{},oneConfig}
+	ServicesMap["oa_entry"] = []interface{}{"oa_entry",&service.IhrSalaryCheckServer{},"SalSalary",&pb.AuthCheckRequest{},oneConfig}
+	tq := rb.Mq
+	tq.MakeChannel()
+	tq.Consumer(v[0].(string),v[1],v[2].(string),v[3],v[4].(rb.ReceiverConfig))
+ */
+ 
+ 
 /* 
 
 
