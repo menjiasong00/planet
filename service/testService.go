@@ -32,7 +32,7 @@ func (s *BasMqServer) MakeCoding(ctx context.Context, in *pb.MakeCodingRequest) 
 
 	var result []SqlResult
 	// Raw SQL
-	db.SysDB.Raw("SELECT COLUMN_NAME as column_name,data_type, column_comment FROM INFORMATION_SCHEMA. COLUMNS WHERE table_name = ? AND table_schema = 'wos_common'", sweaters.TableName).Scan(&result)
+	db.SysDB.Raw("SELECT COLUMN_NAME as column_name,data_type, column_comment FROM INFORMATION_SCHEMA. COLUMNS WHERE table_name = ? AND table_schema = ?", sweaters.TableName,in.DatabaseName).Scan(&result)
 	i := 1
 	for k,v:= range result {
 		result[k].ColumnNameCamel = tools.SnakeToCamel(v.ColumnName)
@@ -41,13 +41,10 @@ func (s *BasMqServer) MakeCoding(ctx context.Context, in *pb.MakeCodingRequest) 
 		i++
 
 		switch v.DataType {
-			case "int":
+			case "int","tinyint","smallint","mediumint":
 				result[k].StuctTypeName = "int"
 				result[k].TypeName = "int32"
-			case "tinyint":
-				result[k].StuctTypeName = "int"
-				result[k].TypeName = "int32"
-			case "varchar":
+			case "varchar","char","text","tinytext","mediumtext","longtext":
 				result[k].StuctTypeName = "string"
 				result[k].TypeName = "string"
 			case "double":
@@ -59,10 +56,7 @@ func (s *BasMqServer) MakeCoding(ctx context.Context, in *pb.MakeCodingRequest) 
 			case "float":
 				result[k].StuctTypeName = "float64"
 				result[k].TypeName = "float"
-			case "datetime":
-				result[k].StuctTypeName = "string"
-				result[k].TypeName = "string"
-			case "timestamp":
+			case "timestamp","date","datetime","time":
 				result[k].StuctTypeName = "time.Time"
 				result[k].TypeName = "string"
 			default:

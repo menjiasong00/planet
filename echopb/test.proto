@@ -28,4 +28,19 @@ service Test {
       get: "/v1/test"
     };
   }
+   rpc MakeCoding(MakeCodingRequest) returns (TestResp) {
+        option (google.api.http) = {
+            post: "/base/coding"
+            body: "*"
+		};
+    }
+}
+
+
+message MakeCodingRequest{
+    string serverName =13;
+    string moduleName =14;
+    string tableName =10;
+    string name =11;
+    string databaseName =15;
 }
