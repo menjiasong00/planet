@@ -1,0 +1,24 @@
+version: "3.7"
+
+services:
+  app:
+    image: testapp:latest
+    container_name: app
+    hostname: app
+    ports:
+      - "50051:50051"
+    command: ./app -server=app -profile=dev -grpc-port=50051
+    networks:
+      - elastic-jaeger
+  ogs:
+    image: testapp:latest
+    container_name: ogs
+    hostname: ogs
+    ports:
+      - "50052:50052"
+    command: ./app -server=ogs -profile=dev -grpc-port=50052
+    networks:
+      - elastic-jaeger
+networks:
+  elastic-jaeger:
+    driver: bridge
