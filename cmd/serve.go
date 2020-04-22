@@ -195,7 +195,7 @@ func serve(args []string) {
 	if err != nil {
 		log.Fatal("ListenAndServe: ", err)
 	}
-
+	//rb.Mq.RunConsumer(srv.ConsumersMap)
 	return
 }
 

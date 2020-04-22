@@ -1,5 +1,5 @@
 
-#1 planet是一个基于 grpc-gateway ,同时满足http和rpc的框架,集成了 微服务\接口文档\日志\认证\调用链等基础服务.你可以在这个基础上快速开发使用微服务+http json接口
+#1 planet是一个基于 grpc-gateway ,同时满足http和rpc的框架，rabbitMq解耦业务代码 ,集成了 微服务\接口文档\日志\认证\调用链等基础服务.你可以在这个基础上快速开发使用微服务+http json接口
 
 git clone github.com/menjiasong00/planet
 
