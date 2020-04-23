@@ -148,9 +148,9 @@ func serve(args []string) {
 	dopts := []grpc.DialOption{grpc.WithTransportCredentials(dcreds)}
 
 	mux := http.NewServeMux()
-	mux.HandleFunc("/swagger.json", func(w http.ResponseWriter, req *http.Request) {
-		io.Copy(w, strings.NewReader(pb.Swagger))
-	})
+	//mux.HandleFunc("/swagger.json", func(w http.ResponseWriter, req *http.Request) {
+	//	io.Copy(w, strings.NewReader(pb.Swagger))
+	//})
 
 	gwmux := runtime.NewServeMux(runtime.WithMarshalerOption(runtime.MIMEWildcard, &runtime.JSONPb{OrigName: true, EmitDefaults: true}))
 	err := pb.RegisterEchoServiceHandlerFromEndpoint(ctx, gwmux, demoAddr, dopts)
@@ -173,7 +173,7 @@ func serve(args []string) {
 	}
 
 	mux.Handle("/", gwmux)
-	serveSwagger(mux)
+	//serveSwagger(mux)
 
 	conn, err := net.Listen("tcp", fmt.Sprintf(":%d", portHost))
 	if err != nil {

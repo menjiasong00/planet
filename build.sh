@@ -1,5 +1,5 @@
 #打包
-CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o runing/app .
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app .
 
 #打镜像
 docker build -f runing/app.df -t testapp:latest .

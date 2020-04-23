@@ -64,3 +64,5 @@ docker-compose -f docker.yaml pull
 11、运行
 docker-compose -f docker.yaml up
 
+12、配置可视化监控 portainer
+
