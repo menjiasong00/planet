@@ -25,47 +25,223 @@ var _ = math.Inf
 // proto package needs to be updated.
 const _ = proto.ProtoPackageIsVersion3 // please upgrade the proto package
 
-type TestMessage struct {
+type TestReq struct {
 	Value                string   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
 	XXX_NoUnkeyedLiteral struct{} `json:"-"`
 	XXX_unrecognized     []byte   `json:"-"`
 	XXX_sizecache        int32    `json:"-"`
 }
 
-func (m *TestMessage) Reset()         { *m = TestMessage{} }
-func (m *TestMessage) String() string { return proto.CompactTextString(m) }
-func (*TestMessage) ProtoMessage()    {}
-func (*TestMessage) Descriptor() ([]byte, []int) {
+func (m *TestReq) Reset()         { *m = TestReq{} }
+func (m *TestReq) String() string { return proto.CompactTextString(m) }
+func (*TestReq) ProtoMessage()    {}
+func (*TestReq) Descriptor() ([]byte, []int) {
 	return fileDescriptor_c161fcfdc0c3ff1e, []int{0}
 }
 
-func (m *TestMessage) XXX_Unmarshal(b []byte) error {
-	return xxx_messageInfo_TestMessage.Unmarshal(m, b)
+func (m *TestReq) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TestReq.Unmarshal(m, b)
 }
-func (m *TestMessage) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
-	return xxx_messageInfo_TestMessage.Marshal(b, m, deterministic)
+func (m *TestReq) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TestReq.Marshal(b, m, deterministic)
 }
-func (m *TestMessage) XXX_Merge(src proto.Message) {
-	xxx_messageInfo_TestMessage.Merge(m, src)
+func (m *TestReq) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TestReq.Merge(m, src)
 }
-func (m *TestMessage) XXX_Size() int {
-	return xxx_messageInfo_TestMessage.Size(m)
+func (m *TestReq) XXX_Size() int {
+	return xxx_messageInfo_TestReq.Size(m)
 }
-func (m *TestMessage) XXX_DiscardUnknown() {
-	xxx_messageInfo_TestMessage.DiscardUnknown(m)
+func (m *TestReq) XXX_DiscardUnknown() {
+	xxx_messageInfo_TestReq.DiscardUnknown(m)
 }
 
-var xxx_messageInfo_TestMessage proto.InternalMessageInfo
+var xxx_messageInfo_TestReq proto.InternalMessageInfo
 
-func (m *TestMessage) GetValue() string {
+func (m *TestReq) GetValue() string {
 	if m != nil {
 		return m.Value
 	}
 	return ""
 }
 
+type TestResp struct {
+	Error                string      `protobuf:"bytes,1,opt,name=error,proto3" json:"error,omitempty"`
+	Message              string      `protobuf:"bytes,2,opt,name=message,proto3" json:"message,omitempty"`
+	Code                 int32       `protobuf:"varint,3,opt,name=code,proto3" json:"code,omitempty"`
+	Details              *TestDetail `protobuf:"bytes,4,opt,name=details,proto3" json:"details,omitempty"`
+	XXX_NoUnkeyedLiteral struct{}    `json:"-"`
+	XXX_unrecognized     []byte      `json:"-"`
+	XXX_sizecache        int32       `json:"-"`
+}
+
+func (m *TestResp) Reset()         { *m = TestResp{} }
+func (m *TestResp) String() string { return proto.CompactTextString(m) }
+func (*TestResp) ProtoMessage()    {}
+func (*TestResp) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c161fcfdc0c3ff1e, []int{1}
+}
+
+func (m *TestResp) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TestResp.Unmarshal(m, b)
+}
+func (m *TestResp) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TestResp.Marshal(b, m, deterministic)
+}
+func (m *TestResp) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TestResp.Merge(m, src)
+}
+func (m *TestResp) XXX_Size() int {
+	return xxx_messageInfo_TestResp.Size(m)
+}
+func (m *TestResp) XXX_DiscardUnknown() {
+	xxx_messageInfo_TestResp.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TestResp proto.InternalMessageInfo
+
+func (m *TestResp) GetError() string {
+	if m != nil {
+		return m.Error
+	}
+	return ""
+}
+
+func (m *TestResp) GetMessage() string {
+	if m != nil {
+		return m.Message
+	}
+	return ""
+}
+
+func (m *TestResp) GetCode() int32 {
+	if m != nil {
+		return m.Code
+	}
+	return 0
+}
+
+func (m *TestResp) GetDetails() *TestDetail {
+	if m != nil {
+		return m.Details
+	}
+	return nil
+}
+
+type TestDetail struct {
+	Value                string   `protobuf:"bytes,1,opt,name=value,proto3" json:"value,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *TestDetail) Reset()         { *m = TestDetail{} }
+func (m *TestDetail) String() string { return proto.CompactTextString(m) }
+func (*TestDetail) ProtoMessage()    {}
+func (*TestDetail) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c161fcfdc0c3ff1e, []int{2}
+}
+
+func (m *TestDetail) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_TestDetail.Unmarshal(m, b)
+}
+func (m *TestDetail) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_TestDetail.Marshal(b, m, deterministic)
+}
+func (m *TestDetail) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_TestDetail.Merge(m, src)
+}
+func (m *TestDetail) XXX_Size() int {
+	return xxx_messageInfo_TestDetail.Size(m)
+}
+func (m *TestDetail) XXX_DiscardUnknown() {
+	xxx_messageInfo_TestDetail.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_TestDetail proto.InternalMessageInfo
+
+func (m *TestDetail) GetValue() string {
+	if m != nil {
+		return m.Value
+	}
+	return ""
+}
+
+type MakeCodingRequest struct {
+	ServerName           string   `protobuf:"bytes,13,opt,name=serverName,proto3" json:"serverName,omitempty"`
+	ModuleName           string   `protobuf:"bytes,14,opt,name=moduleName,proto3" json:"moduleName,omitempty"`
+	TableName            string   `protobuf:"bytes,10,opt,name=tableName,proto3" json:"tableName,omitempty"`
+	Name                 string   `protobuf:"bytes,11,opt,name=name,proto3" json:"name,omitempty"`
+	DatabaseName         string   `protobuf:"bytes,15,opt,name=databaseName,proto3" json:"databaseName,omitempty"`
+	XXX_NoUnkeyedLiteral struct{} `json:"-"`
+	XXX_unrecognized     []byte   `json:"-"`
+	XXX_sizecache        int32    `json:"-"`
+}
+
+func (m *MakeCodingRequest) Reset()         { *m = MakeCodingRequest{} }
+func (m *MakeCodingRequest) String() string { return proto.CompactTextString(m) }
+func (*MakeCodingRequest) ProtoMessage()    {}
+func (*MakeCodingRequest) Descriptor() ([]byte, []int) {
+	return fileDescriptor_c161fcfdc0c3ff1e, []int{3}
+}
+
+func (m *MakeCodingRequest) XXX_Unmarshal(b []byte) error {
+	return xxx_messageInfo_MakeCodingRequest.Unmarshal(m, b)
+}
+func (m *MakeCodingRequest) XXX_Marshal(b []byte, deterministic bool) ([]byte, error) {
+	return xxx_messageInfo_MakeCodingRequest.Marshal(b, m, deterministic)
+}
+func (m *MakeCodingRequest) XXX_Merge(src proto.Message) {
+	xxx_messageInfo_MakeCodingRequest.Merge(m, src)
+}
+func (m *MakeCodingRequest) XXX_Size() int {
+	return xxx_messageInfo_MakeCodingRequest.Size(m)
+}
+func (m *MakeCodingRequest) XXX_DiscardUnknown() {
+	xxx_messageInfo_MakeCodingRequest.DiscardUnknown(m)
+}
+
+var xxx_messageInfo_MakeCodingRequest proto.InternalMessageInfo
+
+func (m *MakeCodingRequest) GetServerName() string {
+	if m != nil {
+		return m.ServerName
+	}
+	return ""
+}
+
+func (m *MakeCodingRequest) GetModuleName() string {
+	if m != nil {
+		return m.ModuleName
+	}
+	return ""
+}
+
+func (m *MakeCodingRequest) GetTableName() string {
+	if m != nil {
+		return m.TableName
+	}
+	return ""
+}
+
+func (m *MakeCodingRequest) GetName() string {
+	if m != nil {
+		return m.Name
+	}
+	return ""
+}
+
+func (m *MakeCodingRequest) GetDatabaseName() string {
+	if m != nil {
+		return m.DatabaseName
+	}
+	return ""
+}
+
 func init() {
-	proto.RegisterType((*TestMessage)(nil), "echopb.TestMessage")
+	proto.RegisterType((*TestReq)(nil), "echopb.TestReq")
+	proto.RegisterType((*TestResp)(nil), "echopb.TestResp")
+	proto.RegisterType((*TestDetail)(nil), "echopb.TestDetail")
+	proto.RegisterType((*MakeCodingRequest)(nil), "echopb.MakeCodingRequest")
 }
 
 func init() {
@@ -73,17 +249,29 @@ func init() {
 }
 
 var fileDescriptor_c161fcfdc0c3ff1e = []byte{
-	// 153 bytes of a gzipped FileDescriptorProto
-	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0xe2, 0xe2, 0x2a, 0x49, 0x2d, 0x2e,
-	0xd1, 0x2b, 0x28, 0xca, 0x2f, 0xc9, 0x17, 0x62, 0x4b, 0x4d, 0xce, 0xc8, 0x2f, 0x48, 0x92, 0x92,
-	0x49, 0xcf, 0xcf, 0x4f, 0xcf, 0x49, 0xd5, 0x4f, 0x2c, 0xc8, 0xd4, 0x4f, 0xcc, 0xcb, 0xcb, 0x2f,
-	0x49, 0x2c, 0xc9, 0xcc, 0xcf, 0x2b, 0x86, 0xa8, 0x52, 0x52, 0xe6, 0xe2, 0x0e, 0x49, 0x2d, 0x2e,
-	0xf1, 0x4d, 0x2d, 0x2e, 0x4e, 0x4c, 0x4f, 0x15, 0x12, 0xe1, 0x62, 0x2d, 0x4b, 0xcc, 0x29, 0x4d,
-	0x95, 0x60, 0x54, 0x60, 0xd4, 0xe0, 0x0c, 0x82, 0x70, 0x8c, 0x02, 0xb8, 0x58, 0x40, 0x8a, 0x84,
-	0x3c, 0xb8, 0xb8, 0xdc, 0x53, 0x4b, 0xc0, 0xea, 0x8b, 0xd3, 0x85, 0x84, 0xf5, 0x20, 0x36, 0xe8,
-	0x21, 0x19, 0x20, 0x85, 0x4d, 0x50, 0x49, 0xa0, 0xe9, 0xf2, 0x93, 0xc9, 0x4c, 0x5c, 0x42, 0x1c,
-	0xfa, 0x65, 0x86, 0xfa, 0x20, 0x27, 0x26, 0xb1, 0x81, 0x6d, 0x37, 0x06, 0x04, 0x00, 0x00, 0xff,
-	0xff, 0xe1, 0x07, 0x8a, 0xa9, 0xb1, 0x00, 0x00, 0x00,
+	// 351 bytes of a gzipped FileDescriptorProto
+	0x1f, 0x8b, 0x08, 0x00, 0x00, 0x00, 0x00, 0x00, 0x02, 0xff, 0x74, 0x92, 0x4f, 0x4e, 0xeb, 0x30,
+	0x10, 0xc6, 0xe5, 0xbe, 0xfe, 0x9d, 0xf6, 0xd1, 0x76, 0x84, 0x44, 0xa8, 0x2a, 0xa8, 0xbc, 0xaa,
+	0x10, 0x6a, 0x44, 0xd9, 0xb1, 0x43, 0x20, 0xb1, 0x2a, 0x0b, 0x8b, 0x0b, 0x38, 0xcd, 0x28, 0x44,
+	0xa4, 0x71, 0x1a, 0xbb, 0x5d, 0xb1, 0xe2, 0x0a, 0xac, 0x39, 0x00, 0xe7, 0xe1, 0x0a, 0x1c, 0x04,
+	0xd9, 0x21, 0x4a, 0x2b, 0x60, 0x37, 0xf3, 0xfd, 0xbe, 0x99, 0xcc, 0x4c, 0x0c, 0x60, 0x48, 0x9b,
+	0x59, 0x96, 0x2b, 0xa3, 0xb0, 0x49, 0xcb, 0x47, 0x95, 0x05, 0xa3, 0x71, 0xa4, 0x54, 0x94, 0x90,
+	0x2f, 0xb3, 0xd8, 0x97, 0x69, 0xaa, 0x8c, 0x34, 0xb1, 0x4a, 0x75, 0xe1, 0xe2, 0xa7, 0xd0, 0x7a,
+	0x20, 0x6d, 0x04, 0xad, 0xf1, 0x10, 0x1a, 0x5b, 0x99, 0x6c, 0xc8, 0x63, 0x13, 0x36, 0xed, 0x88,
+	0x22, 0xe1, 0xcf, 0xd0, 0x2e, 0x0c, 0x3a, 0xb3, 0x0e, 0xca, 0x73, 0x95, 0x97, 0x0e, 0x97, 0xa0,
+	0x07, 0xad, 0x15, 0x69, 0x2d, 0x23, 0xf2, 0x6a, 0x4e, 0x2f, 0x53, 0x44, 0xa8, 0x2f, 0x55, 0x48,
+	0xde, 0xbf, 0x09, 0x9b, 0x36, 0x84, 0x8b, 0xf1, 0x1c, 0x5a, 0x21, 0x19, 0x19, 0x27, 0xda, 0xab,
+	0x4f, 0xd8, 0xb4, 0x3b, 0xc7, 0x59, 0x31, 0xe8, 0xcc, 0x7e, 0xe6, 0xd6, 0x21, 0x51, 0x5a, 0x38,
+	0x07, 0xa8, 0xe4, 0x3f, 0x26, 0x7c, 0x67, 0x30, 0x5c, 0xc8, 0x27, 0xba, 0x51, 0x61, 0x9c, 0x46,
+	0x82, 0xd6, 0x1b, 0xd2, 0x06, 0x4f, 0x00, 0x34, 0xe5, 0x5b, 0xca, 0xef, 0xe5, 0x8a, 0xbc, 0xff,
+	0xae, 0x60, 0x47, 0xb1, 0x7c, 0xa5, 0xc2, 0x4d, 0x42, 0x8e, 0x1f, 0x14, 0xbc, 0x52, 0x70, 0x0c,
+	0x1d, 0x23, 0x83, 0x6f, 0x0c, 0x0e, 0x57, 0x82, 0xdd, 0x2c, 0xb5, 0xa0, 0xeb, 0x80, 0x8b, 0x91,
+	0x43, 0x2f, 0x94, 0x46, 0x06, 0x52, 0x17, 0x45, 0x7d, 0xc7, 0xf6, 0xb4, 0xf9, 0x1b, 0x83, 0xba,
+	0x5d, 0x08, 0xaf, 0x01, 0xee, 0xc8, 0xd8, 0x70, 0xa1, 0x23, 0xec, 0xef, 0xde, 0x40, 0xd0, 0x7a,
+	0x34, 0xd8, 0x17, 0x74, 0xc6, 0x07, 0x2f, 0x1f, 0x9f, 0xaf, 0x35, 0xc0, 0xb6, 0xbf, 0xbd, 0xf0,
+	0xed, 0x6f, 0x46, 0x01, 0x50, 0xad, 0x8d, 0xc7, 0x65, 0xc5, 0x8f, 0x53, 0xfc, 0xd2, 0xec, 0xc8,
+	0x35, 0x1b, 0xf2, 0x9e, 0x6f, 0x27, 0xf3, 0x97, 0xce, 0x7e, 0xc5, 0xce, 0x82, 0xa6, 0x7b, 0x15,
+	0x97, 0x5f, 0x01, 0x00, 0x00, 0xff, 0xff, 0x73, 0xcb, 0x4b, 0x42, 0x49, 0x02, 0x00, 0x00,
 }
 
 // Reference imports to suppress errors if they are not otherwise used.
@@ -98,7 +286,9 @@ const _ = grpc.SupportPackageIsVersion6
 //
 // For semantics around ctx use and closing/ending streaming RPCs, please refer to https://godoc.org/google.golang.org/grpc#ClientConn.NewStream.
 type TestClient interface {
-	GetTestMsg(ctx context.Context, in *TestMessage, opts ...grpc.CallOption) (*TestMessage, error)
+	//测试方法
+	GetTestMsg(ctx context.Context, in *TestReq, opts ...grpc.CallOption) (*TestResp, error)
+	MakeCoding(ctx context.Context, in *MakeCodingRequest, opts ...grpc.CallOption) (*TestResp, error)
 }
 
 type testClient struct {
@@ -109,9 +299,18 @@ func NewTestClient(cc grpc.ClientConnInterface) TestClient {
 	return &testClient{cc}
 }
 
-func (c *testClient) GetTestMsg(ctx context.Context, in *TestMessage, opts ...grpc.CallOption) (*TestMessage, error) {
-	out := new(TestMessage)
+func (c *testClient) GetTestMsg(ctx context.Context, in *TestReq, opts ...grpc.CallOption) (*TestResp, error) {
+	out := new(TestResp)
 	err := c.cc.Invoke(ctx, "/echopb.Test/GetTestMsg", in, out, opts...)
+	if err != nil {
+		return nil, err
+	}
+	return out, nil
+}
+
+func (c *testClient) MakeCoding(ctx context.Context, in *MakeCodingRequest, opts ...grpc.CallOption) (*TestResp, error) {
+	out := new(TestResp)
+	err := c.cc.Invoke(ctx, "/echopb.Test/MakeCoding", in, out, opts...)
 	if err != nil {
 		return nil, err
 	}
@@ -120,15 +319,20 @@ func (c *testClient) GetTestMsg(ctx context.Context, in *TestMessage, opts ...gr
 
 // TestServer is the server API for Test service.
 type TestServer interface {
-	GetTestMsg(context.Context, *TestMessage) (*TestMessage, error)
+	//测试方法
+	GetTestMsg(context.Context, *TestReq) (*TestResp, error)
+	MakeCoding(context.Context, *MakeCodingRequest) (*TestResp, error)
 }
 
 // UnimplementedTestServer can be embedded to have forward compatible implementations.
 type UnimplementedTestServer struct {
 }
 
-func (*UnimplementedTestServer) GetTestMsg(ctx context.Context, req *TestMessage) (*TestMessage, error) {
+func (*UnimplementedTestServer) GetTestMsg(ctx context.Context, req *TestReq) (*TestResp, error) {
 	return nil, status.Errorf(codes.Unimplemented, "method GetTestMsg not implemented")
+}
+func (*UnimplementedTestServer) MakeCoding(ctx context.Context, req *MakeCodingRequest) (*TestResp, error) {
+	return nil, status.Errorf(codes.Unimplemented, "method MakeCoding not implemented")
 }
 
 func RegisterTestServer(s *grpc.Server, srv TestServer) {
@@ -136,7 +340,7 @@ func RegisterTestServer(s *grpc.Server, srv TestServer) {
 }
 
 func _Test_GetTestMsg_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
-	in := new(TestMessage)
+	in := new(TestReq)
 	if err := dec(in); err != nil {
 		return nil, err
 	}
@@ -148,7 +352,25 @@ func _Test_GetTestMsg_Handler(srv interface{}, ctx context.Context, dec func(int
 		FullMethod: "/echopb.Test/GetTestMsg",
 	}
 	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
-		return srv.(TestServer).GetTestMsg(ctx, req.(*TestMessage))
+		return srv.(TestServer).GetTestMsg(ctx, req.(*TestReq))
+	}
+	return interceptor(ctx, in, info, handler)
+}
+
+func _Test_MakeCoding_Handler(srv interface{}, ctx context.Context, dec func(interface{}) error, interceptor grpc.UnaryServerInterceptor) (interface{}, error) {
+	in := new(MakeCodingRequest)
+	if err := dec(in); err != nil {
+		return nil, err
+	}
+	if interceptor == nil {
+		return srv.(TestServer).MakeCoding(ctx, in)
+	}
+	info := &grpc.UnaryServerInfo{
+		Server:     srv,
+		FullMethod: "/echopb.Test/MakeCoding",
+	}
+	handler := func(ctx context.Context, req interface{}) (interface{}, error) {
+		return srv.(TestServer).MakeCoding(ctx, req.(*MakeCodingRequest))
 	}
 	return interceptor(ctx, in, info, handler)
 }
@@ -160,6 +382,10 @@ var _Test_serviceDesc = grpc.ServiceDesc{
 		{
 			MethodName: "GetTestMsg",
 			Handler:    _Test_GetTestMsg_Handler,
+		},
+		{
+			MethodName: "MakeCoding",
+			Handler:    _Test_MakeCoding_Handler,
 		},
 	},
 	Streams:  []grpc.StreamDesc{},

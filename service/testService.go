@@ -17,7 +17,7 @@ func (m *TestServer) GetTestMsg(c context.Context, s *pb.TestReq) (*pb.TestResp,
 
 
 //自动编码
-func (s *BasMqServer) MakeCoding(ctx context.Context, in *pb.MakeCodingRequest) (*pb.DlxResendResponse, error) {
+/* func (s *BasMqServer) MakeCoding(ctx context.Context, in *pb.MakeCodingRequest) (*pb.DlxResendResponse, error) {
 
 	//sweaters := Inventory{"BasInfo", "Item", "BasInfoClassItemT","basInfo", "item"}
 
@@ -109,4 +109,4 @@ func MakeFile(sweaters Inventory,tmplFile string,outFile string) {
 	// 渲染并写入文件
 	_ = tmpl.Execute(f, sweaters)
 
-}
+} */
