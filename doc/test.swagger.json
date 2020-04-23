@@ -11,38 +11,6 @@
     "application/json"
   ],
   "paths": {
-    "/base/coding": {
-      "post": {
-        "operationId": "MakeCoding",
-        "responses": {
-          "200": {
-            "description": "A successful response.",
-            "schema": {
-              "$ref": "#/definitions/echopbTestResp"
-            }
-          },
-          "default": {
-            "description": "An unexpected error response",
-            "schema": {
-              "$ref": "#/definitions/runtimeError"
-            }
-          }
-        },
-        "parameters": [
-          {
-            "name": "body",
-            "in": "body",
-            "required": true,
-            "schema": {
-              "$ref": "#/definitions/echopbMakeCodingRequest"
-            }
-          }
-        ],
-        "tags": [
-          "Test"
-        ]
-      }
-    },
     "/v1/test": {
       "get": {
         "summary": "测试方法",
@@ -76,26 +44,6 @@
     }
   },
   "definitions": {
-    "echopbMakeCodingRequest": {
-      "type": "object",
-      "properties": {
-        "serverName": {
-          "type": "string"
-        },
-        "moduleName": {
-          "type": "string"
-        },
-        "tableName": {
-          "type": "string"
-        },
-        "name": {
-          "type": "string"
-        },
-        "databaseName": {
-          "type": "string"
-        }
-      }
-    },
     "echopbTestDetail": {
       "type": "object",
       "properties": {

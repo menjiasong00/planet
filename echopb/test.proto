@@ -28,12 +28,12 @@ service Test {
       get: "/v1/test"
     };
   }
-   rpc MakeCoding(MakeCodingRequest) returns (TestResp) {
-        option (google.api.http) = {
-            post: "/base/coding"
-            body: "*"
-		};
-    }
+   //rpc MakeCoding(MakeCodingRequest) returns (TestResp) {
+   //     option (google.api.http) = {
+   //         post: "/base/coding"
+   //         body: "*"
+	//	};
+   // }
 }
 
 
