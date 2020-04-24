@@ -17,7 +17,7 @@ services:
     ports:
       - "801:8080"
   portainer:
-    image: portainer:latest
+    image: portainer/portainer:latest
     ports:
       - "9000:9000"
     volumes:
