@@ -232,7 +232,7 @@ func NewJaegerTracer(serviceName string) (tracer opentracing.Tracer, closer io.C
 		Reporter: &jaegerCfg.ReporterConfig{
 			LogSpans:            true,
 			BufferFlushInterval: 1 * time.Second,
-			LocalAgentHostPort:  "localhost:6831",
+			LocalAgentHostPort:  "jaegertracing:6831",
 		},
 	}
 	tracer, closer, err = cfg.New(
