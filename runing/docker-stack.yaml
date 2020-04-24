@@ -33,7 +33,11 @@ services:
     hostname: app
     ports:
       - "50051:50051"
-    command: ./app -server=app -profile=dev -grpc-port=50051
+    command: ./app serve 10000
+    deploy:
+      mode: replicated
+      replicas: 2
+      labels: [server=app]
     networks:
       - local_elastic-jaeger
   ogs:
@@ -42,7 +46,7 @@ services:
     hostname: ogs
     ports:
       - "50052:50052"
-    command: ./app -server=ogs -profile=dev -grpc-port=50052
+    command: ./app serve 10001
     deploy:
       mode: replicated
       replicas: 2
