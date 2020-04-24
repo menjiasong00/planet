@@ -13,7 +13,7 @@ services:
     environment:
       - SWAGGER_JSON=/foo/swagger.json
     volumes:
-      - "/c/www/WOS_CORE/src/doc:/foo"
+      - "/planet/src/doc:/foo"
     ports:
       - "801:8080"
   portainer:
