@@ -32,7 +32,7 @@ services:
     container_name: app
     hostname: app
     ports:
-      - "50051:50051"
+      - "10000:10000"
     command: ./app serve 10000
     deploy:
       mode: replicated
@@ -45,7 +45,7 @@ services:
     container_name: ogs
     hostname: ogs
     ports:
-      - "50052:50052"
+      - "10001:10001"
     command: ./app serve 10001
     deploy:
       mode: replicated
