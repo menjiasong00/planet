@@ -1,0 +1,17 @@
+#在开发电脑打包
+CGO_ENABLED=0 GOOS=linux go build -a -installsuffix cgo -o app 
+
+#推服务器
+git commit -a -m "text"
+git push
+
+#在服务器docker上制作最新image
+chmod 777 app
+docker build -f runing/app.df -t testapp:latest .
+
+#如果第一次起服务，制造swam集群
+docker swarm init
+docker stack deploy -c runing/docker-stack.yaml local
+
+#如果是更新
+docker service update local_app
