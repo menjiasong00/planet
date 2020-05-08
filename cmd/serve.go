@@ -8,7 +8,7 @@ import (
 	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	//"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
-	"google.golang.org/grpc/grpclog"
+	//"google.golang.org/grpc/grpclog"
 	"io"
 	"log"
 	"mime"
@@ -32,7 +32,7 @@ import (
 	opentracing "github.com/opentracing/opentracing-go"
 	jaeger "github.com/uber/jaeger-client-go"
 	jaegerCfg "github.com/uber/jaeger-client-go/config"
-	"github.com/g4zhuj/grpc-wrapper/plugins"
+	//"github.com/g4zhuj/grpc-wrapper/plugins"
 
 	pb "planet/pb"
 )
@@ -96,10 +96,10 @@ func serve(args []string) {
 		grpc.Creds(credentials.NewClientTLSFromCert(demoCertPool, "localhost:"+strconv.Itoa(int(portHost))))}
  
  	//open tracing
-	tracer, _, err2 := NewJaegerTracer("test")
-	if err2 != nil {
-		grpclog.Errorf("new tracer err %v , continue", err2)
-	}
+	//tracer, _, err2 := NewJaegerTracer("test")
+	//if err2 != nil {
+	//	grpclog.Errorf("new tracer err %v , continue", err2)
+	//}
  
 	opts = append(opts,grpc.StreamInterceptor(grpc_middleware.ChainStreamServer(
         grpc_ctxtags.StreamServerInterceptor(),
@@ -113,7 +113,7 @@ func serve(args []string) {
 	opts = append(opts,grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
         grpc_ctxtags.UnaryServerInterceptor(),
         //grpc_opentracing.UnaryServerInterceptor(),
-		plugins.OpentracingServerInterceptor(tracer),
+		//plugins.OpentracingServerInterceptor(tracer),
         //grpc_prometheus.UnaryServerInterceptor,
         //grpc_zap.UnaryServerInterceptor(zapLogger),
         grpc_auth.UnaryServerInterceptor(AuthCheck),
