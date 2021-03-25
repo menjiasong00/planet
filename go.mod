@@ -1,25 +1,30 @@
 module planet
 
-go 1.14
+go 1.12
 
 require (
-	github.com/g4zhuj/go-metrics-falcon v0.0.0-20180427054158-5159ced4eafb // indirect
-	github.com/g4zhuj/grpc-wrapper v0.0.0-20190508092021-ced55bb6c5d6
-	github.com/golang/protobuf v1.3.5
+	github.com/fsnotify/fsnotify v1.4.9 // indirect
+	github.com/golang/glog v0.0.0-20160126235308-23def4e6c14b
+	github.com/golang/protobuf v1.5.1
 	github.com/gomodule/redigo v2.0.0+incompatible
 	github.com/grpc-ecosystem/go-grpc-middleware v1.0.0
-	github.com/grpc-ecosystem/grpc-gateway v1.14.3
-	github.com/opentracing/opentracing-go v1.1.0
-	github.com/philips/go-bindata-assetfs v0.0.0-20150624150248-3dcc96556217
-	github.com/philips/grpc-gateway-example v0.0.0-20170619012617-a269bcb5931c
-	github.com/rcrowley/go-metrics v0.0.0-20200313005456-10cdbea86bc0 // indirect
-	github.com/spf13/cobra v0.0.6
-	github.com/spf13/viper v1.6.2
-	github.com/stretchr/testify v1.4.0 // indirect
-	github.com/uber/jaeger-client-go v2.22.1+incompatible
-	github.com/uber/jaeger-lib v2.2.0+incompatible // indirect
-	golang.org/x/net v0.0.0-20200320220750-118fecf932d8
-	golang.org/x/sys v0.0.0-20190422165155-953cdadca894 // indirect
-	google.golang.org/genproto v0.0.0-20200319113533-08878b785e9c
-	google.golang.org/grpc v1.28.0
+	github.com/grpc-ecosystem/grpc-gateway v1.16.0
+	github.com/jinzhu/gorm v1.9.12
+	github.com/magiconair/properties v1.8.4 // indirect
+	github.com/mitchellh/mapstructure v1.4.1 // indirect
+	github.com/opentracing/opentracing-go v1.2.0 // indirect
+	github.com/pelletier/go-toml v1.8.1 // indirect
+	github.com/rs/xid v1.2.1
+	github.com/spf13/afero v1.5.1 // indirect
+	github.com/spf13/cast v1.3.1 // indirect
+	github.com/spf13/cobra v1.1.3
+	github.com/spf13/jwalterweatherman v1.1.0 // indirect
+	github.com/spf13/viper v1.7.1
+	github.com/streadway/amqp v1.0.0
+	golang.org/x/net v0.0.0-20210316092652-d523dce5a7f4
+	golang.org/x/sys v0.0.0-20210317225723-c4fcb01b228e // indirect
+	golang.org/x/text v0.3.5 // indirect
+	google.golang.org/genproto v0.0.0-20210318145829-90b20ab00860
+	google.golang.org/grpc v1.36.0
+	gopkg.in/ini.v1 v1.62.0 // indirect
 )

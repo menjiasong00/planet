@@ -4,109 +4,112 @@ import(
 	pb "planet/pb"
 	"golang.org/x/net/context"
 	"fmt"
+
+	"planet/pkg/gcode"
 )
 
 
 type TestServer struct{}
-func (m *TestServer) GetTestMsg(c context.Context, s *pb.TestReq) (*pb.TestResp, error) {
+
+func (m *TestServer) GetTestMsg(c context.Context, s *pb.TestMessage) (*pb.TestMessage, error) {
 	fmt.Printf("xxxxx(%q)\n", s.Value)
-	details := &pb.TestDetail{Value:s.Value}
-	return &pb.TestResp{Details:details}, nil
+	gcode.MakeCoding(gcode.MakeCodingRequest{
+		DatabaseName:"test",
+		TableName:"products",
+		Name:"产品",
+		ServerName:"Bas",
+		ModuleName:"BaslProducts",
+	})
+	return s, nil
 }
 
 
 
-//自动编码
-/* func (s *BasMqServer) MakeCoding(ctx context.Context, in *pb.MakeCodingRequest) (*pb.DlxResendResponse, error) {
+// DlxConsumer 死信消费者
+/*
 
-	//sweaters := Inventory{"BasInfo", "Item", "BasInfoClassItemT","basInfo", "item"}
+CREATE TABLE `bas_mq_dlx` (
+  `id` int(11) NOT NULL AUTO_INCREMENT COMMENT '自增ID',
+  `exchange` varchar(255) NOT NULL COMMENT '交换机',
+  `routing_key` json NOT NULL COMMENT '路由标识',
+  `queue` varchar(255) NOT NULL COMMENT '队列名称',
+  `app_id` varchar(255) NOT NULL COMMENT 'app_id',
+  `body` json DEFAULT NULL COMMENT '消息体',
+  `header` json DEFAULT NULL COMMENT '消息头',
+  `expired_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '过期时间',
+  `create_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '创建时间',
+  `create_by` varchar(200) DEFAULT '',
+  `update_at` timestamp NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+  `update_by` varchar(200) DEFAULT '更新人',
+  `status` tinyint(4) DEFAULT '1' COMMENT '## 1 未处理  2 已处理',
+  PRIMARY KEY (`id`),
+  KEY `EX_IDX` (`exchange`),
+  KEY `QUEUE_IDX` (`queue`)
+) ENGINE=InnoDB AUTO_INCREMENT=1 DEFAULT CHARSET=utf8 COMMENT='mq消息死信表';
 
-	sweaters := Inventory{in.Name,in.ServerName, in.ModuleName,"" ,"", "",in.TableName,nil}
+message DlxConsumerRequest{
+    string header =1;
+    string body =2;
+}
 
-	moduleNameSnake := tools.SnakeString(sweaters.ModuleName)
-	serverNameSnake := tools.SnakeString(sweaters.ServerName)
-	sweaters.ModuleNameLow = tools.SnakeToCamel(moduleNameSnake)
-	sweaters.ServerNameLow = tools.SnakeToCamel(serverNameSnake)
-	sweaters.ModelName = tools.SnakeToBigCamel(sweaters.TableName)
-	//SELECT COLUMN_NAME as column_name, column_comment FROM INFORMATION_SCHEMA. COLUMNS WHERE table_name = 'bas_mq_dlx' AND table_schema = 'wos_common'
+func (s *TestServer) DlxConsumer(ctx context.Context, in *pb.DlxConsumerRequest) (*pb.BaseResponse, error) {
 
-	var result []SqlResult
-	// Raw SQL
-	db.SysDB.Raw("SELECT COLUMN_NAME as column_name,data_type, column_comment FROM INFORMATION_SCHEMA. COLUMNS WHERE table_name = ? AND table_schema = ?", sweaters.TableName,in.DatabaseName).Scan(&result)
-	i := 1
-	for k,v:= range result {
-		result[k].ColumnNameCamel = tools.SnakeToCamel(v.ColumnName)
-		result[k].ColumnNameBigCamel = tools.SnakeToBigCamel(v.ColumnName)
-		result[k].Id = i
-		i++
-
-		switch v.DataType {
-			case "int","tinyint","smallint","mediumint":
-				result[k].StuctTypeName = "int"
-				result[k].TypeName = "int32"
-			case "varchar","char","text","tinytext","mediumtext","longtext":
-				result[k].StuctTypeName = "string"
-				result[k].TypeName = "string"
-			case "double":
-				result[k].StuctTypeName = "float32"
-				result[k].TypeName = "float"
-			case "bool":
-				result[k].StuctTypeName = "bool"
-				result[k].TypeName = "bool"
-			case "float":
-				result[k].StuctTypeName = "float64"
-				result[k].TypeName = "float"
-			case "timestamp","date","datetime","time":
-				result[k].StuctTypeName = "time.Time"
-				result[k].TypeName = "string"
-			default:
-				result[k].StuctTypeName = "string"
-				result[k].TypeName = "string"
-		//
-		}
+	type Xheader struct {
+		Count int `json:"count"`
+		Exchange string `json:"exchange"`
+		Queue string `json:"queue"`
+		Reason string `json:"reason"`
+		RoutingKeys []string `json:"routing-keys"`
+		Time time.Time `json:"time"`
+	}
+	
+	type Header struct {
+		AppId string `json:"appid"`
+		XDeath []Xheader `json:"x-death"`
+		XFirstDeathExchange string `json:"x-first-death-exchange"`
+		XFirstDeathQueue string `json:"x-first-death-queue"`
+		XFirstDeathReason string `json:"x-first-death-reason"`
 	}
 
-	sweaters.Columns = result
+	var dlxHeader Header
+	json.Unmarshal([]byte(in.Header), &dlxHeader)
 
-	MakeFile(sweaters,"./pkg/coding/model.go.tpl","./model/"+sweaters.TableName+".go-")
-	MakeFile(sweaters,"./pkg/coding/proto.go.tpl","./proto/"+sweaters.ServerNameLow+".proto-")
-	MakeFile(sweaters,"./pkg/coding/server.go.tpl","./service/"+sweaters.ServerNameLow+"Service.go-")
+	var firstXheader Xheader
 
-	return &pb.DlxResendResponse{Status: 200, Message: "success", Data:true}, nil
+	for k,v:= range dlxHeader.XDeath{
+		if (k==0){
+			firstXheader = v
+		}else{
+			if v.Time.Unix() < firstXheader.Time.Unix() {
+				firstXheader = v
+			}
+		}
+	}
+	if firstXheader.Exchange =="" {
+		firstXheader.Time = time.Now()
+	}
+
+	routingkey ,_:= json.Marshal(firstXheader.RoutingKeys)
+	newBasMqDlx := model.BasMqDlx{
+		Exchange:firstXheader.Exchange,
+		Queue:firstXheader.Queue,
+		Header:in.Header,
+		Body:in.Body,
+		CreateAt:firstXheader.Time,
+		UpdateAt:firstXheader.Time,
+		ExpiredAt:firstXheader.Time,
+		Status:1,
+		AppId:dlxHeader.AppId,
+		RoutingKey: bytes.NewBuffer(routingkey).String(),
+	}
+
+
+	err:= gmysql.DB.Save(&newBasMqDlx).Error
+
+	if err !=nil {
+		return &pb.BaseResponse{}, err
+	}
+
+	return &pb.BaseResponse{}, nil
 }
-
-type SqlResult struct {
-	Id int
-	DataType string
-	ColumnName string
-	ColumnComment string
-	TypeName string
-	ColumnNameCamel string
-	ColumnNameBigCamel string
-	StuctTypeName string
-}
-
-type Inventory struct {
-	Name string
-	ServerName string
-	ModuleName string
-	ModelName string
-	ServerNameLow string
-	ModuleNameLow string
-	TableName string
-	Columns []SqlResult
-}
-
-func MakeFile(sweaters Inventory,tmplFile string,outFile string) {
-
-	tmpl, _ := template.ParseFiles(tmplFile)
-
-	_ = tmpl.Execute(os.Stdout, sweaters)
-
-	f, _ := os.OpenFile(outFile, os.O_WRONLY|os.O_CREATE, 0644)
-	defer f.Close()
-
-	// 渲染并写入文件
-	_ = tmpl.Execute(f, sweaters)
-
-} */
+*/
