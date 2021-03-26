@@ -1,27 +1,30 @@
 package cmd
 
 import (
-	grbmq "planet/pkg/grbmq"
-	pb "planet/pb"
-	service "planet/service"
-	gcore "planet/pkg/gcore"
+	"planet/env"
+	"planet/pb"
+	"planet/pkg/gcore"
+	"planet/pkg/grbmq"
+	"planet/service"
 	//"planet/insecure"
 	"github.com/spf13/cobra"
 	"log"
 )
 
 
+
 var ConsumerSettings  = []grbmq.ConsumerSetting{}
 var ServerSettings = []gcore.ServeSetting{}
-var grpcPort = "50050"
-var httpPort = "8080"
+var grpcPort = env.Config.GetString("Server.GrpcPort")
+var httpPort = env.Config.GetString("Server.HttpPort")
+
 
 func init() {
 	//微服务配置
 	ServerSettings = []gcore.ServeSetting{
 		//测试demo
 		{
-			Host:":50050",
+			Host:":"+grpcPort,
 			Server:&service.TestServer{},
 			Register:pb.RegisterTestServer,
 			HandlerFromEndpoint:pb.RegisterTestHandlerFromEndpoint,

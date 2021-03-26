@@ -1,0 +1,20 @@
+TimeStamp: "2018-10-18 10:09:23"
+Address: "Shenzhen"
+Postcode: 518000
+Server:
+  GrpcPort: "50050"
+  HttpPort: "8080"
+  IsOpen: false
+Mysql:
+  UserName: "root2"
+  Password: "123456"
+  Ip: "127.0.0.1"
+  Port: "3306"
+  Db: "test"
+Rbmq:
+  UserName: "guest"
+  Password: "guest"
+  Ip: "127.0.0.1"
+  Port: "5672"
+  Vhost: ""
+  Retry: 600

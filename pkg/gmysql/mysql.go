@@ -4,19 +4,21 @@ import (
 	"bytes"
 	"database/sql"
 	"fmt"
+	"planet/env"
 	"strings"
 	"planet/pkg/tools"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
 )
 
-const (
-	userName = "root2"
-	password = "123456"
-	ip = "127.0.0.1"
-	port = "3306"
-	dbName = "test"
+var (
+	userName = env.Config.GetString("Mysql.UserName")
+	password = env.Config.GetString("Mysql.Password")
+	ip = env.Config.GetString("Mysql.Ip")
+	port = env.Config.GetString("Mysql.Port")
+	dbName = env.Config.GetString("Mysql.Db")
 )
+
 var DB *gorm.DB
 
 func init() {
@@ -32,6 +34,30 @@ func init() {
 		panic(err)
 	}
 	DB.LogMode(true)
+}
+
+type ConnConfig struct {
+	Host     string
+	Port     string
+	UserName     string
+	Password string
+	DB    string
+}
+
+func New(qConfig ConnConfig) (DB *gorm.DB) {
+	var err error
+	DB, err = gorm.Open(
+		"mysql",
+		fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
+			qConfig.UserName,
+			qConfig.Password,
+			qConfig.Host+":"+qConfig.Port,
+			qConfig.DB))
+	if err != nil {
+		panic(err)
+	}
+	DB.LogMode(true)
+	return DB
 }
 
 

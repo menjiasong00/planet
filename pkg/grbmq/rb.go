@@ -7,18 +7,19 @@ import (
 	"github.com/streadway/amqp"
 	"golang.org/x/net/context"
 	"log"
+	"planet/env"
 	//"net/http"
 	"reflect"
 	"time"
 )
 
-const (
-	host = "127.0.0.1"
-	port = "5672"
-	username = "guest"
-	password = "guest"
-	vhost = ""
-	retry = 600
+var (
+	host = env.Config.GetString("Rbmq.Ip")
+	port =  env.Config.GetString("Rbmq.Port")
+	username = env.Config.GetString("Rbmq.UserName")
+	password = env.Config.GetString("Rbmq.Password")
+	vhost = env.Config.GetString("Rbmq.Vhost")
+	retry = env.Config.GetInt("Rbmq.Retry")
 )
 
 //Rbmq 结构体
