@@ -19,7 +19,7 @@ Huge thanks to the hard work people have put into the [Go gRPC bindings][gogrpc]
 [gogrpc]: https://github.com/grpc/grpc-go
 [grpcgateway]: https://github.com/grpc-ecosystem/grpc-gateway
 
-#1 planet微服务 框架介绍
+# planet微服务 框架介绍
 
 基于 grpc-gateway ,同时满足http和rpc的框架，rabbitMq解耦业服务间的交互 ,集成了 微服务\接口文档\日志\认证\调用链等基础服务.你可以在这个基础上快速开发使用微服务+http json接口
 
@@ -27,22 +27,34 @@ Huge thanks to the hard work people have put into the [Go gRPC bindings][gogrpc]
 $git clone github.com/menjiasong00/soul
 ```
 
-#2 打开go mod: $Env:GO111MODULE="on" 可以设置用户环境变量代理解决go get 慢问题:
+# 打开go mod: $Env:GO111MODULE="on" 可以设置用户环境变量代理解决go get 慢问题:
 
 ```
 $GOPROXY=https://goproxy.io
 $GO111MODULE=on
 ```
 
-#4 启动
+# 启动
 
 ```
 $go run main.go serve 
 ```
 
-访问:https://localhost:8080/v1/test?value=44444 
+访问:http://localhost:8080/v1/test?value=44444 
 
-#5 开发必备:安装工具组件
+
+
+# 安装mysql 创建test数据库,表名products,字段随意，插入几条测试数据:
+
+配置于pkg/gmysql
+把service/testService.go 注释打开,重启服务,调用下面接口,执行gcode.MakeCoding()代码生成curd一套文件(包括service\model\proto)
+
+```
+$http://localhost:8080/v1/test?value=44444 
+```
+
+
+# 为了把proto自动编译go代码。 开发必备:安装工具组件
 
 ```
 $go get -u github.com/grpc-ecosystem/grpc-gateway/protoc-gen-grpc-gateway
@@ -53,19 +65,26 @@ $go get -u github.com/golang/protobuf/proto // golang protobuf 库
 $go get google.golang.org/grpc
 ```
 
-#6 下载protobuf 3.6.1 修改proto后 运行工具生成go代码
+# 下载protobuf 3.6.1 修改proto后 运行工具生成go代码
 
 https://github.com/protocolbuffers/protobuf/releases
 
-protoc 复制 到d:\gopath\bin google复制到planet\echopb 有写好的脚本run生成pb
+protoc 复制 到d:\gopath\bin google复制到planet\echopb 有写好的脚本run,把proto生成go的代码pb
 
-#6 安装docker,启调用链监控jaeger
+# 测试生成的curl接口
+
+```
+$http://localhost:8080/bas/products
+```
+
+
+# 安装docker,启调用链监控jaeger
 
 docker run -d -p6831:6831/udp -p16686:16686 jaegertracing/all-in-one:latest
 
 访问http://127.0.0.1:16686/
 
-#计划整合:
+# 计划整合:
 
 Docker的图形化管理工具Portainer
 
