@@ -15,4 +15,4 @@ route:
 receivers:
 - name: 'live-monitoring'
   email_configs:
-  - to: '1933306137@qq.com'　　　　　　　　#收邮件的邮箱
+  - to: '261779585@qq.com'　　　　　　　　#收邮件的邮箱
