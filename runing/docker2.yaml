@@ -1,0 +1,31 @@
+version: "3.7"
+
+services:
+  app:
+    image: testapp:latest
+    container_name: app
+    hostname: app
+    volumes:
+      - "/c/www/test/planet/env:/env"
+    ports:
+      - "10002:10002"
+      - "8082:8082"
+    command: ./app serve 8082 10002
+  api:
+    image: testapp:latest
+    container_name: api
+    hostname: api
+    volumes:
+      - "/c/www/test/planet/env:/env"
+    ports:
+      - "10001:10001"
+      - "8081:8081"
+    command: ./app serve 8081 10001
+networks:
+  elastic-jaeger:
+    driver: bridge
+volumes:
+  data:
+    driver: local
+  portainer_data:
+  jaeger_data:

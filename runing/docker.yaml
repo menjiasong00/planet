@@ -27,6 +27,8 @@ services:
     image: testapp:latest
     container_name: app
     hostname: app
+    volumes:
+      - "/env:/env"
     ports:
       - "50051:50051"
     command: ./app -server=app -profile=dev -grpc-port=50051
@@ -36,6 +38,8 @@ services:
     image: testapp:latest
     container_name: ogs
     hostname: ogs
+    volumes:
+      - "/env:/env"
     ports:
       - "50052:50052"
     command: ./app -server=ogs -profile=dev -grpc-port=50052
