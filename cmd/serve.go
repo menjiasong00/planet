@@ -29,6 +29,12 @@ func init() {
 			Register:pb.RegisterTestServer,
 			HandlerFromEndpoint:pb.RegisterTestHandlerFromEndpoint,
 		},
+		{
+			Host:":"+grpcPort,
+			Server:&service.BasServer{},
+			Register:pb.RegisterBasServer,
+			HandlerFromEndpoint:pb.RegisterBasHandlerFromEndpoint,
+		},
 	}
 
 	//消费者配置

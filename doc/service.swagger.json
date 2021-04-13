@@ -12,17 +12,17 @@
   ],
   "paths": {
     "/v1/echo": {
-      "get": {
-        "operationId": "Echo",
+      "post": {
+        "operationId": "EchoService_Echo",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/echopbEchoMessage"
+              "$ref": "#/definitions/pbEchoMessage"
             }
           },
           "default": {
-            "description": "An unexpected error response",
+            "description": "An unexpected error response.",
             "schema": {
               "$ref": "#/definitions/runtimeError"
             }
@@ -30,10 +30,12 @@
         },
         "parameters": [
           {
-            "name": "value",
-            "in": "query",
-            "required": false,
-            "type": "string"
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbEchoMessage"
+            }
           }
         ],
         "tags": [
@@ -43,7 +45,7 @@
     }
   },
   "definitions": {
-    "echopbEchoMessage": {
+    "pbEchoMessage": {
       "type": "object",
       "properties": {
         "value": {

@@ -1,0 +1,115 @@
+syntax = "proto3";
+package pb;
+
+import "google/api/annotations.proto";
+option go_package = "./;pb";
+
+//产品
+service Bas{
+
+    //产品列表
+    rpc BaslProductsList (BaslProductsListRequest) returns (BaslProductsListResponse) {
+        option (google.api.http) = {
+            get: "/bas/basl/products"
+		};
+    }
+
+    //产品详情
+    rpc BaslProductsDetail (BaslProductsIdRequest) returns (BaslProductsDetailResponse) {
+        option (google.api.http) = {
+            get: "/bas/basl/products/{id}"
+		};
+    }
+
+    //产品创建
+    rpc BaslProductsCreate(BaslProductsOneRequest) returns (BaslProductsResponse) {
+        option (google.api.http) = {
+            post: "/bas/basl/products"
+            body: "*"
+		};
+    }
+
+    //产品修改
+    rpc BaslProductsMotify(BaslProductsOneRequest) returns (BaslProductsResponse) {
+        option (google.api.http) = {
+            put: "/bas/basl/products"
+            body: "*"
+		};
+    }
+
+    //产品删除
+    rpc BaslProductsDelete(BaslProductsIdRequest) returns (BaslProductsResponse) {
+        option (google.api.http) = {
+            delete: "/bas/basl/products"
+		};
+    }
+}
+
+//产品通用
+message BaslProductsResponse{
+    int32 status = 1;
+    string message = 2;
+       //bool data = 3;
+    int32 code = 4;
+    string error = 5;
+    bool details = 6;
+}
+
+//产品列表
+message BaslProductsListRequest{
+    //每页多少个
+    int32 pageSize = 100;
+    //页码
+    int32 pageNumber = 101;
+    //排序字段
+    string orderKey =102;
+    //排序方式
+    string orderSort =103;
+}
+
+message BaslProductsListResponse{
+    int32 status = 1;
+    string message = 2;
+    //BaslProductsList data = 3;
+    int32 code = 4;
+    string error = 5;
+    BaslProductsList  details = 6;
+}
+
+message BaslProductsList {
+    //总数
+    int32 total = 1;
+    //列表
+    repeated BaslProductsOneRequest list = 2;
+}
+
+//产品结构
+message BaslProductsOneRequest {
+    //
+    int32 id =1;
+    //
+    string createdAt =2;
+    //
+    string updatedAt =3;
+    //
+    string deletedAt =4;
+    //
+    string code =5;
+    //
+    int32 price =6;
+    
+}
+
+//产品详情
+message BaslProductsIdRequest{
+    int32 id =1;
+}
+
+message BaslProductsDetailResponse{
+    int32 status = 1;
+    string message = 2;
+    //BaslProductsOneRequest data = 3;
+    int32 code = 4;
+    string error = 5;
+    BaslProductsOneRequest  details = 6;
+}

@@ -1,9 +1,9 @@
 syntax = "proto3";
-option go_package = "pb";
+package pb;
 
-package proto;
 import "google/api/annotations.proto";
-import "validate/validate.proto";
+option go_package = "./;pb";
+//import "validate/validate.proto";
 
 //{{.Name}}
 service {{.ServerName}}{

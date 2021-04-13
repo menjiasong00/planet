@@ -13,17 +13,16 @@
   "paths": {
     "/v1/test": {
       "get": {
-        "summary": "测试方法",
-        "operationId": "GetTestMsg",
+        "operationId": "Test_GetTestMsg",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/echopbTestResp"
+              "$ref": "#/definitions/pbTestMessage"
             }
           },
           "default": {
-            "description": "An unexpected error response",
+            "description": "An unexpected error response.",
             "schema": {
               "$ref": "#/definitions/runtimeError"
             }
@@ -44,29 +43,11 @@
     }
   },
   "definitions": {
-    "echopbTestDetail": {
+    "pbTestMessage": {
       "type": "object",
       "properties": {
         "value": {
           "type": "string"
-        }
-      }
-    },
-    "echopbTestResp": {
-      "type": "object",
-      "properties": {
-        "error": {
-          "type": "string"
-        },
-        "message": {
-          "type": "string"
-        },
-        "code": {
-          "type": "integer",
-          "format": "int32"
-        },
-        "details": {
-          "$ref": "#/definitions/echopbTestDetail"
         }
       }
     },

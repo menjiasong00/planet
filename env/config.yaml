@@ -6,8 +6,8 @@ Server:
   HttpPort: "8080"
   IsOpen: false
 Mysql:
-  UserName: "root2"
-  Password: "123456"
+  UserName: "root"
+  Password: "root"
   Ip: "127.0.0.1"
   Port: "3306"
   Db: "test"
