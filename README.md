@@ -321,10 +321,51 @@ protoc 复制 到d:\gopath\bin google复制到planet\echopb 有写好的脚本ru
  打开go mod: $Env:GO111MODULE="on" 可以设置用户环境变量代理解决go get 慢问题:
 
 ```
-$GOPROXY=https://goproxy.io
-$GO111MODULE=on
+go env -w GO111MODULE=on
+go env -w GOPROXY=https://goproxy.cn,direct
 ```
 
+设置host（C:\Windows\System32\drivers\etc）可以解决github无法访问的问题。编辑hosts：
+```
+# Github Hosts
+# Update 20210312
+140.82.113.4 github.com
+140.82.112.10 nodeload.github.com
+140.82.114.6 api.github.com
+13.229.189.0 codeload.github.com
+185.199.110.133 raw.github.com
+185.199.110.153 training.github.com
+185.199.110.153 assets-cdn.github.com
+185.199.110.153 documentcloud.github.com
+185.199.110.154 help.github.com
+
+185.199.110.153 githubstatus.com
+199.232.69.194 github.global.ssl.fastly.net
+
+185.199.110.133 raw.githubusercontent.com
+185.199.110.133 cloud.githubusercontent.com
+185.199.110.133 gist.githubusercontent.com
+185.199.110.133 marketplace-screenshots.githubusercontent.com
+185.199.110.133 repository-images.githubusercontent.com
+185.199.110.133 user-images.githubusercontent.com
+185.199.110.133 desktop.githubusercontent.com
+
+185.199.110.133 avatars.githubusercontent.com
+185.199.110.133 avatars0.githubusercontent.com
+185.199.110.133 avatars1.githubusercontent.com
+185.199.110.133 avatars2.githubusercontent.com
+185.199.110.133 avatars3.githubusercontent.com
+185.199.110.133 avatars4.githubusercontent.com
+185.199.110.133 avatars5.githubusercontent.com
+185.199.110.133 avatars6.githubusercontent.com
+185.199.110.133 avatars7.githubusercontent.com
+185.199.110.133 avatars8.githubusercontent.com
+185.199.108.153 assets-cdn.github.com
+185.199.109.153 assets-cdn.github.com
+185.199.110.153 assets-cdn.github.com
+185.199.111.153 assets-cdn.github.com
+# End of the section
+```
 
  安装docker,启调用链监控jaeger
 
