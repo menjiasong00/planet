@@ -19,7 +19,7 @@ func (m *TestServer) GetTestMsg(c context.Context, s *pb.TestMessage) (*pb.TestM
 		TableName:"products",
 		Name:"产品",
 		ServerName:"Bas",
-		ModuleName:"BaslProducts",
+		ModuleName:"BasProducts",
 	})
 	return s, nil
 }

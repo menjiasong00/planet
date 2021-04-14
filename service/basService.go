@@ -10,10 +10,10 @@ import (
 
 type BasServer struct{}
 
-//BaslProductsList 产品列表
-func (s *BasServer) BaslProductsList(ctx context.Context, in *pb.BaslProductsListRequest) (*pb.BaslProductsListResponse, error) {
+//BasProductsList 产品列表
+func (s *BasServer) BasProductsList(ctx context.Context, in *pb.BasProductsListRequest) (*pb.BasProductsListResponse, error) {
 
-	resp := &pb.BaslProductsList{}
+	resp := &pb.BasProductsList{}
 
 	dbModel := gmysql.DB.Model(model.Products{})
 
@@ -41,21 +41,21 @@ func (s *BasServer) BaslProductsList(ctx context.Context, in *pb.BaslProductsLis
 
 	}*/
 
-	return &pb.BaslProductsListResponse{Status: 200, Message: "success", Details: resp}, nil
+	return &pb.BasProductsListResponse{Status: 200, Message: "success", Details: resp}, nil
 }
 
-//BaslProductsDetail 产品详情
-func (s *BasServer) BaslProductsDetail(ctx context.Context, in *pb.BaslProductsIdRequest) (*pb.BaslProductsDetailResponse, error) {
+//BasProductsDetail 产品详情
+func (s *BasServer) BasProductsDetail(ctx context.Context, in *pb.BasProductsIdRequest) (*pb.BasProductsDetailResponse, error) {
 
-	resp := &pb.BaslProductsOneRequest{}
+	resp := &pb.BasProductsOneRequest{}
 	gmysql.DB.Model(model.Products{}).Where("id = ?",in.Id).Scan(&resp)
 
-	return &pb.BaslProductsDetailResponse{Status: 200, Message: "success", Details: resp}, nil
+	return &pb.BasProductsDetailResponse{Status: 200, Message: "success", Details: resp}, nil
 }
 
 
-//BaslProductsCreate 产品新建
-func (s *BasServer) BaslProductsCreate(ctx context.Context, in *pb.BaslProductsOneRequest) (*pb.BaslProductsResponse, error) {
+//BasProductsCreate 产品新建
+func (s *BasServer) BasProductsCreate(ctx context.Context, in *pb.BasProductsOneRequest) (*pb.BasProductsResponse, error) {
     
 	//表单验证
     errValidate := in.Validate()
@@ -63,16 +63,16 @@ func (s *BasServer) BaslProductsCreate(ctx context.Context, in *pb.BaslProductsO
     		return nil, errValidate
     }
 
-	BaslProductsOne := model.Products{}
-	tools.ScanStuct(in,&BaslProductsOne)
+	BasProductsOne := model.Products{}
+	tools.ScanStuct(in,&BasProductsOne)
 
-	gmysql.DB.Create(&BaslProductsOne)
+	gmysql.DB.Create(&BasProductsOne)
 
-	return &pb.BaslProductsResponse{Status: 200, Message: "success", Details:true}, nil
+	return &pb.BasProductsResponse{Status: 200, Message: "success", Details:true}, nil
 }
 
-//BaslProductsMotify 产品修改
-func (s *BasServer) BaslProductsMotify(ctx context.Context, in *pb.BaslProductsOneRequest) (*pb.BaslProductsResponse, error) {
+//BasProductsMotify 产品修改
+func (s *BasServer) BasProductsMotify(ctx context.Context, in *pb.BasProductsOneRequest) (*pb.BasProductsResponse, error) {
     
 	//表单验证
     errValidate := in.Validate()
@@ -80,25 +80,31 @@ func (s *BasServer) BaslProductsMotify(ctx context.Context, in *pb.BaslProductsO
     		return nil, errValidate
     }
 
-	BaslProductsOne := model.Products{}
-	gmysql.DB.Model(model.Products{}).Where("id = ?",in.Id).Find(&BaslProductsOne)
-	tools.ScanStuct(in,&BaslProductsOne)
+	BasProductsOne := model.Products{}
+	gmysql.DB.Model(model.Products{}).Where("id = ?",in.Id).Find(&BasProductsOne)
+	tools.ScanStuct(in,&BasProductsOne)
 
-	gmysql.DB.Model(model.Products{}).Where(" id = ?",in.Id).Save(&BaslProductsOne)
+	gmysql.DB.Model(model.Products{}).Where(" id = ?",in.Id).Save(&BasProductsOne)
 
-	return &pb.BaslProductsResponse{Status: 200, Message: "success", Details:true}, nil
+	return &pb.BasProductsResponse{Status: 200, Message: "success", Details:true}, nil
 }
 
-//BaslProductsDelete 产品删除
-func (s *BasServer) BaslProductsDelete(ctx context.Context, in *pb.BaslProductsIdRequest) (*pb.BaslProductsResponse, error) {
+//BasProductsDelete 产品删除
+func (s *BasServer) BasProductsDelete(ctx context.Context, in *pb.BasProductsIdRequest) (*pb.BasProductsResponse, error) {
 
-    BaslProductsOne := model.Products{}
-    gmysql.DB.Model(model.Products{}).First(&BaslProductsOne,in.Id)
-    //BaslProductsOne.Status = 2
-    gmysql.DB.Save(&BaslProductsOne)
+    BasProductsOne := model.Products{}
+    gmysql.DB.Model(model.Products{}).First(&BasProductsOne,in.Id)
+    //BasProductsOne.Status = 2
+    gmysql.DB.Save(&BasProductsOne)
 	
-	return &pb.BaslProductsResponse{Status: 200, Message: "success", Details:true}, nil
+	return &pb.BasProductsResponse{Status: 200, Message: "success", Details:true}, nil
 }
+
+
+
+
+
+
 
 
 

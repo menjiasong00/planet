@@ -34,43 +34,43 @@ var _ = descriptor.ForMessage
 var _ = metadata.Join
 
 var (
-	filter_Bas_BaslProductsList_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_Bas_BasProductsList_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
 
-func request_Bas_BaslProductsList_0(ctx context.Context, marshaler runtime.Marshaler, client BasClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BaslProductsListRequest
+func request_Bas_BasProductsList_0(ctx context.Context, marshaler runtime.Marshaler, client BasClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq BasProductsListRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Bas_BaslProductsList_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Bas_BasProductsList_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.BaslProductsList(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.BasProductsList(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Bas_BaslProductsList_0(ctx context.Context, marshaler runtime.Marshaler, server BasServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BaslProductsListRequest
+func local_request_Bas_BasProductsList_0(ctx context.Context, marshaler runtime.Marshaler, server BasServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq BasProductsListRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Bas_BaslProductsList_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Bas_BasProductsList_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.BaslProductsList(ctx, &protoReq)
+	msg, err := server.BasProductsList(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_Bas_BaslProductsDetail_0(ctx context.Context, marshaler runtime.Marshaler, client BasClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BaslProductsIdRequest
+func request_Bas_BasProductsDetail_0(ctx context.Context, marshaler runtime.Marshaler, client BasClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq BasProductsIdRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -91,13 +91,13 @@ func request_Bas_BaslProductsDetail_0(ctx context.Context, marshaler runtime.Mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
 	}
 
-	msg, err := client.BaslProductsDetail(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.BasProductsDetail(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Bas_BaslProductsDetail_0(ctx context.Context, marshaler runtime.Marshaler, server BasServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BaslProductsIdRequest
+func local_request_Bas_BasProductsDetail_0(ctx context.Context, marshaler runtime.Marshaler, server BasServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq BasProductsIdRequest
 	var metadata runtime.ServerMetadata
 
 	var (
@@ -118,13 +118,13 @@ func local_request_Bas_BaslProductsDetail_0(ctx context.Context, marshaler runti
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "type mismatch, parameter: %s, error: %v", "id", err)
 	}
 
-	msg, err := server.BaslProductsDetail(ctx, &protoReq)
+	msg, err := server.BasProductsDetail(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_Bas_BaslProductsCreate_0(ctx context.Context, marshaler runtime.Marshaler, client BasClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BaslProductsOneRequest
+func request_Bas_BasProductsCreate_0(ctx context.Context, marshaler runtime.Marshaler, client BasClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq BasProductsOneRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -135,13 +135,13 @@ func request_Bas_BaslProductsCreate_0(ctx context.Context, marshaler runtime.Mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.BaslProductsCreate(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.BasProductsCreate(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Bas_BaslProductsCreate_0(ctx context.Context, marshaler runtime.Marshaler, server BasServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BaslProductsOneRequest
+func local_request_Bas_BasProductsCreate_0(ctx context.Context, marshaler runtime.Marshaler, server BasServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq BasProductsOneRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -152,13 +152,13 @@ func local_request_Bas_BaslProductsCreate_0(ctx context.Context, marshaler runti
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.BaslProductsCreate(ctx, &protoReq)
+	msg, err := server.BasProductsCreate(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
-func request_Bas_BaslProductsMotify_0(ctx context.Context, marshaler runtime.Marshaler, client BasClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BaslProductsOneRequest
+func request_Bas_BasProductsMotify_0(ctx context.Context, marshaler runtime.Marshaler, client BasClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq BasProductsOneRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -169,13 +169,13 @@ func request_Bas_BaslProductsMotify_0(ctx context.Context, marshaler runtime.Mar
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.BaslProductsMotify(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.BasProductsMotify(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Bas_BaslProductsMotify_0(ctx context.Context, marshaler runtime.Marshaler, server BasServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BaslProductsOneRequest
+func local_request_Bas_BasProductsMotify_0(ctx context.Context, marshaler runtime.Marshaler, server BasServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq BasProductsOneRequest
 	var metadata runtime.ServerMetadata
 
 	newReader, berr := utilities.IOReaderFactory(req.Body)
@@ -186,43 +186,43 @@ func local_request_Bas_BaslProductsMotify_0(ctx context.Context, marshaler runti
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.BaslProductsMotify(ctx, &protoReq)
+	msg, err := server.BasProductsMotify(ctx, &protoReq)
 	return msg, metadata, err
 
 }
 
 var (
-	filter_Bas_BaslProductsDelete_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
+	filter_Bas_BasProductsDelete_0 = &utilities.DoubleArray{Encoding: map[string]int{}, Base: []int(nil), Check: []int(nil)}
 )
 
-func request_Bas_BaslProductsDelete_0(ctx context.Context, marshaler runtime.Marshaler, client BasClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BaslProductsIdRequest
+func request_Bas_BasProductsDelete_0(ctx context.Context, marshaler runtime.Marshaler, client BasClient, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq BasProductsIdRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Bas_BaslProductsDelete_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Bas_BasProductsDelete_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := client.BaslProductsDelete(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
+	msg, err := client.BasProductsDelete(ctx, &protoReq, grpc.Header(&metadata.HeaderMD), grpc.Trailer(&metadata.TrailerMD))
 	return msg, metadata, err
 
 }
 
-func local_request_Bas_BaslProductsDelete_0(ctx context.Context, marshaler runtime.Marshaler, server BasServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
-	var protoReq BaslProductsIdRequest
+func local_request_Bas_BasProductsDelete_0(ctx context.Context, marshaler runtime.Marshaler, server BasServer, req *http.Request, pathParams map[string]string) (proto.Message, runtime.ServerMetadata, error) {
+	var protoReq BasProductsIdRequest
 	var metadata runtime.ServerMetadata
 
 	if err := req.ParseForm(); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
-	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Bas_BaslProductsDelete_0); err != nil {
+	if err := runtime.PopulateQueryParameters(&protoReq, req.Form, filter_Bas_BasProductsDelete_0); err != nil {
 		return nil, metadata, status.Errorf(codes.InvalidArgument, "%v", err)
 	}
 
-	msg, err := server.BaslProductsDelete(ctx, &protoReq)
+	msg, err := server.BasProductsDelete(ctx, &protoReq)
 	return msg, metadata, err
 
 }
@@ -233,7 +233,7 @@ func local_request_Bas_BaslProductsDelete_0(ctx context.Context, marshaler runti
 // Note that using this registration option will cause many gRPC library features to stop working. Consider using RegisterBasHandlerFromEndpoint instead.
 func RegisterBasHandlerServer(ctx context.Context, mux *runtime.ServeMux, server BasServer) error {
 
-	mux.Handle("GET", pattern_Bas_BaslProductsList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_Bas_BasProductsList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -244,7 +244,7 @@ func RegisterBasHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Bas_BaslProductsList_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Bas_BasProductsList_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -252,11 +252,11 @@ func RegisterBasHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			return
 		}
 
-		forward_Bas_BaslProductsList_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Bas_BasProductsList_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_Bas_BaslProductsDetail_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_Bas_BasProductsDetail_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -267,7 +267,7 @@ func RegisterBasHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Bas_BaslProductsDetail_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Bas_BasProductsDetail_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -275,11 +275,11 @@ func RegisterBasHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			return
 		}
 
-		forward_Bas_BaslProductsDetail_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Bas_BasProductsDetail_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Bas_BaslProductsCreate_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Bas_BasProductsCreate_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -290,7 +290,7 @@ func RegisterBasHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Bas_BaslProductsCreate_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Bas_BasProductsCreate_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -298,11 +298,11 @@ func RegisterBasHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			return
 		}
 
-		forward_Bas_BaslProductsCreate_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Bas_BasProductsCreate_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("PUT", pattern_Bas_BaslProductsMotify_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PUT", pattern_Bas_BasProductsMotify_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -313,7 +313,7 @@ func RegisterBasHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Bas_BaslProductsMotify_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Bas_BasProductsMotify_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -321,11 +321,11 @@ func RegisterBasHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			return
 		}
 
-		forward_Bas_BaslProductsMotify_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Bas_BasProductsMotify_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_Bas_BaslProductsDelete_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_Bas_BasProductsDelete_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		var stream runtime.ServerTransportStream
@@ -336,7 +336,7 @@ func RegisterBasHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := local_request_Bas_BaslProductsDelete_0(rctx, inboundMarshaler, server, req, pathParams)
+		resp, md, err := local_request_Bas_BasProductsDelete_0(rctx, inboundMarshaler, server, req, pathParams)
 		md.HeaderMD, md.TrailerMD = metadata.Join(md.HeaderMD, stream.Header()), metadata.Join(md.TrailerMD, stream.Trailer())
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
@@ -344,7 +344,7 @@ func RegisterBasHandlerServer(ctx context.Context, mux *runtime.ServeMux, server
 			return
 		}
 
-		forward_Bas_BaslProductsDelete_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Bas_BasProductsDelete_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -389,7 +389,7 @@ func RegisterBasHandler(ctx context.Context, mux *runtime.ServeMux, conn *grpc.C
 // "BasClient" to call the correct interceptors.
 func RegisterBasHandlerClient(ctx context.Context, mux *runtime.ServeMux, client BasClient) error {
 
-	mux.Handle("GET", pattern_Bas_BaslProductsList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_Bas_BasProductsList_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
@@ -398,18 +398,18 @@ func RegisterBasHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Bas_BaslProductsList_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Bas_BasProductsList_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Bas_BaslProductsList_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Bas_BasProductsList_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("GET", pattern_Bas_BaslProductsDetail_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("GET", pattern_Bas_BasProductsDetail_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
@@ -418,18 +418,18 @@ func RegisterBasHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Bas_BaslProductsDetail_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Bas_BasProductsDetail_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Bas_BaslProductsDetail_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Bas_BasProductsDetail_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("POST", pattern_Bas_BaslProductsCreate_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("POST", pattern_Bas_BasProductsCreate_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
@@ -438,18 +438,18 @@ func RegisterBasHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Bas_BaslProductsCreate_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Bas_BasProductsCreate_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Bas_BaslProductsCreate_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Bas_BasProductsCreate_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("PUT", pattern_Bas_BaslProductsMotify_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("PUT", pattern_Bas_BasProductsMotify_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
@@ -458,18 +458,18 @@ func RegisterBasHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Bas_BaslProductsMotify_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Bas_BasProductsMotify_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Bas_BaslProductsMotify_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Bas_BasProductsMotify_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
-	mux.Handle("DELETE", pattern_Bas_BaslProductsDelete_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
+	mux.Handle("DELETE", pattern_Bas_BasProductsDelete_0, func(w http.ResponseWriter, req *http.Request, pathParams map[string]string) {
 		ctx, cancel := context.WithCancel(req.Context())
 		defer cancel()
 		inboundMarshaler, outboundMarshaler := runtime.MarshalerForRequest(mux, req)
@@ -478,14 +478,14 @@ func RegisterBasHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
-		resp, md, err := request_Bas_BaslProductsDelete_0(rctx, inboundMarshaler, client, req, pathParams)
+		resp, md, err := request_Bas_BasProductsDelete_0(rctx, inboundMarshaler, client, req, pathParams)
 		ctx = runtime.NewServerMetadataContext(ctx, md)
 		if err != nil {
 			runtime.HTTPError(ctx, mux, outboundMarshaler, w, req, err)
 			return
 		}
 
-		forward_Bas_BaslProductsDelete_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
+		forward_Bas_BasProductsDelete_0(ctx, mux, outboundMarshaler, w, req, resp, mux.GetForwardResponseOptions()...)
 
 	})
 
@@ -493,25 +493,25 @@ func RegisterBasHandlerClient(ctx context.Context, mux *runtime.ServeMux, client
 }
 
 var (
-	pattern_Bas_BaslProductsList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"bas", "basl", "products"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Bas_BasProductsList_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1}, []string{"bas", "products"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Bas_BaslProductsDetail_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2, 1, 0, 4, 1, 5, 3}, []string{"bas", "basl", "products", "id"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Bas_BasProductsDetail_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1, 1, 0, 4, 1, 5, 2}, []string{"bas", "products", "id"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Bas_BaslProductsCreate_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"bas", "basl", "products"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Bas_BasProductsCreate_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1}, []string{"bas", "products"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Bas_BaslProductsMotify_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"bas", "basl", "products"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Bas_BasProductsMotify_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1}, []string{"bas", "products"}, "", runtime.AssumeColonVerbOpt(true)))
 
-	pattern_Bas_BaslProductsDelete_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 1, 2, 2}, []string{"bas", "basl", "products"}, "", runtime.AssumeColonVerbOpt(true)))
+	pattern_Bas_BasProductsDelete_0 = runtime.MustPattern(runtime.NewPattern(1, []int{2, 0, 2, 0, 2, 1}, []string{"bas", "products"}, "", runtime.AssumeColonVerbOpt(true)))
 )
 
 var (
-	forward_Bas_BaslProductsList_0 = runtime.ForwardResponseMessage
+	forward_Bas_BasProductsList_0 = runtime.ForwardResponseMessage
 
-	forward_Bas_BaslProductsDetail_0 = runtime.ForwardResponseMessage
+	forward_Bas_BasProductsDetail_0 = runtime.ForwardResponseMessage
 
-	forward_Bas_BaslProductsCreate_0 = runtime.ForwardResponseMessage
+	forward_Bas_BasProductsCreate_0 = runtime.ForwardResponseMessage
 
-	forward_Bas_BaslProductsMotify_0 = runtime.ForwardResponseMessage
+	forward_Bas_BasProductsMotify_0 = runtime.ForwardResponseMessage
 
-	forward_Bas_BaslProductsDelete_0 = runtime.ForwardResponseMessage
+	forward_Bas_BasProductsDelete_0 = runtime.ForwardResponseMessage
 )

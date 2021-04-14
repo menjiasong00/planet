@@ -11,15 +11,15 @@
     "application/json"
   ],
   "paths": {
-    "/bas/basl/products": {
+    "/bas/bas/products": {
       "get": {
         "summary": "产品列表",
-        "operationId": "Bas_BaslProductsList",
+        "operationId": "Bas_BasProductsList",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbBaslProductsListResponse"
+              "$ref": "#/definitions/pbBasProductsListResponse"
             }
           },
           "default": {
@@ -67,12 +67,12 @@
       },
       "delete": {
         "summary": "产品删除",
-        "operationId": "Bas_BaslProductsDelete",
+        "operationId": "Bas_BasProductsDelete",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbBaslProductsResponse"
+              "$ref": "#/definitions/pbBasProductsResponse"
             }
           },
           "default": {
@@ -97,12 +97,12 @@
       },
       "post": {
         "summary": "产品创建",
-        "operationId": "Bas_BaslProductsCreate",
+        "operationId": "Bas_BasProductsCreate",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbBaslProductsResponse"
+              "$ref": "#/definitions/pbBasProductsResponse"
             }
           },
           "default": {
@@ -118,7 +118,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbBaslProductsOneRequest"
+              "$ref": "#/definitions/pbBasProductsOneRequest"
             }
           }
         ],
@@ -128,12 +128,12 @@
       },
       "put": {
         "summary": "产品修改",
-        "operationId": "Bas_BaslProductsMotify",
+        "operationId": "Bas_BasProductsMotify",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbBaslProductsResponse"
+              "$ref": "#/definitions/pbBasProductsResponse"
             }
           },
           "default": {
@@ -149,7 +149,7 @@
             "in": "body",
             "required": true,
             "schema": {
-              "$ref": "#/definitions/pbBaslProductsOneRequest"
+              "$ref": "#/definitions/pbBasProductsOneRequest"
             }
           }
         ],
@@ -158,15 +158,15 @@
         ]
       }
     },
-    "/bas/basl/products/{id}": {
+    "/bas/bas/products/{id}": {
       "get": {
         "summary": "产品详情",
-        "operationId": "Bas_BaslProductsDetail",
+        "operationId": "Bas_BasProductsDetail",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/pbBaslProductsDetailResponse"
+              "$ref": "#/definitions/pbBasProductsDetailResponse"
             }
           },
           "default": {
@@ -192,7 +192,7 @@
     }
   },
   "definitions": {
-    "pbBaslProductsDetailResponse": {
+    "pbBasProductsDetailResponse": {
       "type": "object",
       "properties": {
         "status": {
@@ -205,17 +205,17 @@
         "code": {
           "type": "integer",
           "format": "int32",
-          "title": "BaslProductsOneRequest data = 3;"
+          "title": "BasProductsOneRequest data = 3;"
         },
         "error": {
           "type": "string"
         },
         "details": {
-          "$ref": "#/definitions/pbBaslProductsOneRequest"
+          "$ref": "#/definitions/pbBasProductsOneRequest"
         }
       }
     },
-    "pbBaslProductsList": {
+    "pbBasProductsList": {
       "type": "object",
       "properties": {
         "total": {
@@ -226,13 +226,13 @@
         "list": {
           "type": "array",
           "items": {
-            "$ref": "#/definitions/pbBaslProductsOneRequest"
+            "$ref": "#/definitions/pbBasProductsOneRequest"
           },
           "title": "列表"
         }
       }
     },
-    "pbBaslProductsListResponse": {
+    "pbBasProductsListResponse": {
       "type": "object",
       "properties": {
         "status": {
@@ -245,17 +245,17 @@
         "code": {
           "type": "integer",
           "format": "int32",
-          "title": "BaslProductsList data = 3;"
+          "title": "BasProductsList data = 3;"
         },
         "error": {
           "type": "string"
         },
         "details": {
-          "$ref": "#/definitions/pbBaslProductsList"
+          "$ref": "#/definitions/pbBasProductsList"
         }
       }
     },
-    "pbBaslProductsOneRequest": {
+    "pbBasProductsOneRequest": {
       "type": "object",
       "properties": {
         "id": {
@@ -281,7 +281,7 @@
       },
       "title": "产品结构"
     },
-    "pbBaslProductsResponse": {
+    "pbBasProductsResponse": {
       "type": "object",
       "properties": {
         "status": {

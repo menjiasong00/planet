@@ -13,7 +13,7 @@ type Products struct {
     //
     UpdatedAt time.Time  `gorm:"column:updated_at"`
     //
-    DeletedAt time.Time  `gorm:"column:deleted_at"`
+    DeletedAt string  `gorm:"column:deleted_at"`
     //
     Code string  `gorm:"column:code"`
     //

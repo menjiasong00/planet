@@ -33,10 +33,10 @@ var (
 	_ = ptypes.DynamicAny{}
 )
 
-// Validate checks the field values on BaslProductsResponse with the rules
+// Validate checks the field values on BasProductsResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *BaslProductsResponse) Validate() error {
+func (m *BasProductsResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -54,9 +54,9 @@ func (m *BaslProductsResponse) Validate() error {
 	return nil
 }
 
-// BaslProductsResponseValidationError is the validation error returned by
-// BaslProductsResponse.Validate if the designated constraints aren't met.
-type BaslProductsResponseValidationError struct {
+// BasProductsResponseValidationError is the validation error returned by
+// BasProductsResponse.Validate if the designated constraints aren't met.
+type BasProductsResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -64,24 +64,24 @@ type BaslProductsResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e BaslProductsResponseValidationError) Field() string { return e.field }
+func (e BasProductsResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e BaslProductsResponseValidationError) Reason() string { return e.reason }
+func (e BasProductsResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e BaslProductsResponseValidationError) Cause() error { return e.cause }
+func (e BasProductsResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e BaslProductsResponseValidationError) Key() bool { return e.key }
+func (e BasProductsResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e BaslProductsResponseValidationError) ErrorName() string {
-	return "BaslProductsResponseValidationError"
+func (e BasProductsResponseValidationError) ErrorName() string {
+	return "BasProductsResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e BaslProductsResponseValidationError) Error() string {
+func (e BasProductsResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -93,14 +93,14 @@ func (e BaslProductsResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sBaslProductsResponse.%s: %s%s",
+		"invalid %sBasProductsResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = BaslProductsResponseValidationError{}
+var _ error = BasProductsResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -108,12 +108,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = BaslProductsResponseValidationError{}
+} = BasProductsResponseValidationError{}
 
-// Validate checks the field values on BaslProductsListRequest with the rules
+// Validate checks the field values on BasProductsListRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *BaslProductsListRequest) Validate() error {
+func (m *BasProductsListRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -129,9 +129,9 @@ func (m *BaslProductsListRequest) Validate() error {
 	return nil
 }
 
-// BaslProductsListRequestValidationError is the validation error returned by
-// BaslProductsListRequest.Validate if the designated constraints aren't met.
-type BaslProductsListRequestValidationError struct {
+// BasProductsListRequestValidationError is the validation error returned by
+// BasProductsListRequest.Validate if the designated constraints aren't met.
+type BasProductsListRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -139,24 +139,24 @@ type BaslProductsListRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e BaslProductsListRequestValidationError) Field() string { return e.field }
+func (e BasProductsListRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e BaslProductsListRequestValidationError) Reason() string { return e.reason }
+func (e BasProductsListRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e BaslProductsListRequestValidationError) Cause() error { return e.cause }
+func (e BasProductsListRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e BaslProductsListRequestValidationError) Key() bool { return e.key }
+func (e BasProductsListRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e BaslProductsListRequestValidationError) ErrorName() string {
-	return "BaslProductsListRequestValidationError"
+func (e BasProductsListRequestValidationError) ErrorName() string {
+	return "BasProductsListRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e BaslProductsListRequestValidationError) Error() string {
+func (e BasProductsListRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -168,14 +168,14 @@ func (e BaslProductsListRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sBaslProductsListRequest.%s: %s%s",
+		"invalid %sBasProductsListRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = BaslProductsListRequestValidationError{}
+var _ error = BasProductsListRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -183,12 +183,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = BaslProductsListRequestValidationError{}
+} = BasProductsListRequestValidationError{}
 
-// Validate checks the field values on BaslProductsListResponse with the rules
+// Validate checks the field values on BasProductsListResponse with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *BaslProductsListResponse) Validate() error {
+func (m *BasProductsListResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -203,7 +203,7 @@ func (m *BaslProductsListResponse) Validate() error {
 
 	if v, ok := interface{}(m.GetDetails()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return BaslProductsListResponseValidationError{
+			return BasProductsListResponseValidationError{
 				field:  "Details",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -214,9 +214,9 @@ func (m *BaslProductsListResponse) Validate() error {
 	return nil
 }
 
-// BaslProductsListResponseValidationError is the validation error returned by
-// BaslProductsListResponse.Validate if the designated constraints aren't met.
-type BaslProductsListResponseValidationError struct {
+// BasProductsListResponseValidationError is the validation error returned by
+// BasProductsListResponse.Validate if the designated constraints aren't met.
+type BasProductsListResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -224,24 +224,24 @@ type BaslProductsListResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e BaslProductsListResponseValidationError) Field() string { return e.field }
+func (e BasProductsListResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e BaslProductsListResponseValidationError) Reason() string { return e.reason }
+func (e BasProductsListResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e BaslProductsListResponseValidationError) Cause() error { return e.cause }
+func (e BasProductsListResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e BaslProductsListResponseValidationError) Key() bool { return e.key }
+func (e BasProductsListResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e BaslProductsListResponseValidationError) ErrorName() string {
-	return "BaslProductsListResponseValidationError"
+func (e BasProductsListResponseValidationError) ErrorName() string {
+	return "BasProductsListResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e BaslProductsListResponseValidationError) Error() string {
+func (e BasProductsListResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -253,14 +253,14 @@ func (e BaslProductsListResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sBaslProductsListResponse.%s: %s%s",
+		"invalid %sBasProductsListResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = BaslProductsListResponseValidationError{}
+var _ error = BasProductsListResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -268,12 +268,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = BaslProductsListResponseValidationError{}
+} = BasProductsListResponseValidationError{}
 
-// Validate checks the field values on BaslProductsList with the rules defined
+// Validate checks the field values on BasProductsList with the rules defined
 // in the proto definition for this message. If any rules are violated, an
 // error is returned.
-func (m *BaslProductsList) Validate() error {
+func (m *BasProductsList) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -285,7 +285,7 @@ func (m *BaslProductsList) Validate() error {
 
 		if v, ok := interface{}(item).(interface{ Validate() error }); ok {
 			if err := v.Validate(); err != nil {
-				return BaslProductsListValidationError{
+				return BasProductsListValidationError{
 					field:  fmt.Sprintf("List[%v]", idx),
 					reason: "embedded message failed validation",
 					cause:  err,
@@ -298,9 +298,9 @@ func (m *BaslProductsList) Validate() error {
 	return nil
 }
 
-// BaslProductsListValidationError is the validation error returned by
-// BaslProductsList.Validate if the designated constraints aren't met.
-type BaslProductsListValidationError struct {
+// BasProductsListValidationError is the validation error returned by
+// BasProductsList.Validate if the designated constraints aren't met.
+type BasProductsListValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -308,22 +308,22 @@ type BaslProductsListValidationError struct {
 }
 
 // Field function returns field value.
-func (e BaslProductsListValidationError) Field() string { return e.field }
+func (e BasProductsListValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e BaslProductsListValidationError) Reason() string { return e.reason }
+func (e BasProductsListValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e BaslProductsListValidationError) Cause() error { return e.cause }
+func (e BasProductsListValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e BaslProductsListValidationError) Key() bool { return e.key }
+func (e BasProductsListValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e BaslProductsListValidationError) ErrorName() string { return "BaslProductsListValidationError" }
+func (e BasProductsListValidationError) ErrorName() string { return "BasProductsListValidationError" }
 
 // Error satisfies the builtin error interface
-func (e BaslProductsListValidationError) Error() string {
+func (e BasProductsListValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -335,14 +335,14 @@ func (e BaslProductsListValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sBaslProductsList.%s: %s%s",
+		"invalid %sBasProductsList.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = BaslProductsListValidationError{}
+var _ error = BasProductsListValidationError{}
 
 var _ interface {
 	Field() string
@@ -350,12 +350,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = BaslProductsListValidationError{}
+} = BasProductsListValidationError{}
 
-// Validate checks the field values on BaslProductsOneRequest with the rules
+// Validate checks the field values on BasProductsOneRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *BaslProductsOneRequest) Validate() error {
+func (m *BasProductsOneRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -375,9 +375,9 @@ func (m *BaslProductsOneRequest) Validate() error {
 	return nil
 }
 
-// BaslProductsOneRequestValidationError is the validation error returned by
-// BaslProductsOneRequest.Validate if the designated constraints aren't met.
-type BaslProductsOneRequestValidationError struct {
+// BasProductsOneRequestValidationError is the validation error returned by
+// BasProductsOneRequest.Validate if the designated constraints aren't met.
+type BasProductsOneRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -385,24 +385,24 @@ type BaslProductsOneRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e BaslProductsOneRequestValidationError) Field() string { return e.field }
+func (e BasProductsOneRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e BaslProductsOneRequestValidationError) Reason() string { return e.reason }
+func (e BasProductsOneRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e BaslProductsOneRequestValidationError) Cause() error { return e.cause }
+func (e BasProductsOneRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e BaslProductsOneRequestValidationError) Key() bool { return e.key }
+func (e BasProductsOneRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e BaslProductsOneRequestValidationError) ErrorName() string {
-	return "BaslProductsOneRequestValidationError"
+func (e BasProductsOneRequestValidationError) ErrorName() string {
+	return "BasProductsOneRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e BaslProductsOneRequestValidationError) Error() string {
+func (e BasProductsOneRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -414,14 +414,14 @@ func (e BaslProductsOneRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sBaslProductsOneRequest.%s: %s%s",
+		"invalid %sBasProductsOneRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = BaslProductsOneRequestValidationError{}
+var _ error = BasProductsOneRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -429,12 +429,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = BaslProductsOneRequestValidationError{}
+} = BasProductsOneRequestValidationError{}
 
-// Validate checks the field values on BaslProductsIdRequest with the rules
+// Validate checks the field values on BasProductsIdRequest with the rules
 // defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *BaslProductsIdRequest) Validate() error {
+func (m *BasProductsIdRequest) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -444,9 +444,9 @@ func (m *BaslProductsIdRequest) Validate() error {
 	return nil
 }
 
-// BaslProductsIdRequestValidationError is the validation error returned by
-// BaslProductsIdRequest.Validate if the designated constraints aren't met.
-type BaslProductsIdRequestValidationError struct {
+// BasProductsIdRequestValidationError is the validation error returned by
+// BasProductsIdRequest.Validate if the designated constraints aren't met.
+type BasProductsIdRequestValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -454,24 +454,24 @@ type BaslProductsIdRequestValidationError struct {
 }
 
 // Field function returns field value.
-func (e BaslProductsIdRequestValidationError) Field() string { return e.field }
+func (e BasProductsIdRequestValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e BaslProductsIdRequestValidationError) Reason() string { return e.reason }
+func (e BasProductsIdRequestValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e BaslProductsIdRequestValidationError) Cause() error { return e.cause }
+func (e BasProductsIdRequestValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e BaslProductsIdRequestValidationError) Key() bool { return e.key }
+func (e BasProductsIdRequestValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e BaslProductsIdRequestValidationError) ErrorName() string {
-	return "BaslProductsIdRequestValidationError"
+func (e BasProductsIdRequestValidationError) ErrorName() string {
+	return "BasProductsIdRequestValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e BaslProductsIdRequestValidationError) Error() string {
+func (e BasProductsIdRequestValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -483,14 +483,14 @@ func (e BaslProductsIdRequestValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sBaslProductsIdRequest.%s: %s%s",
+		"invalid %sBasProductsIdRequest.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = BaslProductsIdRequestValidationError{}
+var _ error = BasProductsIdRequestValidationError{}
 
 var _ interface {
 	Field() string
@@ -498,12 +498,12 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = BaslProductsIdRequestValidationError{}
+} = BasProductsIdRequestValidationError{}
 
-// Validate checks the field values on BaslProductsDetailResponse with the
-// rules defined in the proto definition for this message. If any rules are
+// Validate checks the field values on BasProductsDetailResponse with the rules
+// defined in the proto definition for this message. If any rules are
 // violated, an error is returned.
-func (m *BaslProductsDetailResponse) Validate() error {
+func (m *BasProductsDetailResponse) Validate() error {
 	if m == nil {
 		return nil
 	}
@@ -518,7 +518,7 @@ func (m *BaslProductsDetailResponse) Validate() error {
 
 	if v, ok := interface{}(m.GetDetails()).(interface{ Validate() error }); ok {
 		if err := v.Validate(); err != nil {
-			return BaslProductsDetailResponseValidationError{
+			return BasProductsDetailResponseValidationError{
 				field:  "Details",
 				reason: "embedded message failed validation",
 				cause:  err,
@@ -529,9 +529,9 @@ func (m *BaslProductsDetailResponse) Validate() error {
 	return nil
 }
 
-// BaslProductsDetailResponseValidationError is the validation error returned
-// by BaslProductsDetailResponse.Validate if the designated constraints aren't met.
-type BaslProductsDetailResponseValidationError struct {
+// BasProductsDetailResponseValidationError is the validation error returned by
+// BasProductsDetailResponse.Validate if the designated constraints aren't met.
+type BasProductsDetailResponseValidationError struct {
 	field  string
 	reason string
 	cause  error
@@ -539,24 +539,24 @@ type BaslProductsDetailResponseValidationError struct {
 }
 
 // Field function returns field value.
-func (e BaslProductsDetailResponseValidationError) Field() string { return e.field }
+func (e BasProductsDetailResponseValidationError) Field() string { return e.field }
 
 // Reason function returns reason value.
-func (e BaslProductsDetailResponseValidationError) Reason() string { return e.reason }
+func (e BasProductsDetailResponseValidationError) Reason() string { return e.reason }
 
 // Cause function returns cause value.
-func (e BaslProductsDetailResponseValidationError) Cause() error { return e.cause }
+func (e BasProductsDetailResponseValidationError) Cause() error { return e.cause }
 
 // Key function returns key value.
-func (e BaslProductsDetailResponseValidationError) Key() bool { return e.key }
+func (e BasProductsDetailResponseValidationError) Key() bool { return e.key }
 
 // ErrorName returns error name.
-func (e BaslProductsDetailResponseValidationError) ErrorName() string {
-	return "BaslProductsDetailResponseValidationError"
+func (e BasProductsDetailResponseValidationError) ErrorName() string {
+	return "BasProductsDetailResponseValidationError"
 }
 
 // Error satisfies the builtin error interface
-func (e BaslProductsDetailResponseValidationError) Error() string {
+func (e BasProductsDetailResponseValidationError) Error() string {
 	cause := ""
 	if e.cause != nil {
 		cause = fmt.Sprintf(" | caused by: %v", e.cause)
@@ -568,14 +568,14 @@ func (e BaslProductsDetailResponseValidationError) Error() string {
 	}
 
 	return fmt.Sprintf(
-		"invalid %sBaslProductsDetailResponse.%s: %s%s",
+		"invalid %sBasProductsDetailResponse.%s: %s%s",
 		key,
 		e.field,
 		e.reason,
 		cause)
 }
 
-var _ error = BaslProductsDetailResponseValidationError{}
+var _ error = BasProductsDetailResponseValidationError{}
 
 var _ interface {
 	Field() string
@@ -583,4 +583,4 @@ var _ interface {
 	Key() bool
 	Cause() error
 	ErrorName() string
-} = BaslProductsDetailResponseValidationError{}
+} = BasProductsDetailResponseValidationError{}
