@@ -117,7 +117,7 @@ func RunServeGRPC(servers []ServeSetting,port string) {
 			//grpc_zap.UnaryServerInterceptor(zapLogger),
 			//grpc_auth.UnaryServerInterceptor(myAuthFunction),
 			//plugins.OpentracingServerInterceptor(tracer),
-			//grpc.UnaryServerInterceptor(checkauth),
+			//grpc.UnaryServerInterceptor(checkauth),//登录检查
 			grpc_recovery.UnaryServerInterceptor(),
 		)),
 	}

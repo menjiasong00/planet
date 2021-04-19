@@ -7,20 +7,11 @@ import (
 	"github.com/streadway/amqp"
 	"golang.org/x/net/context"
 	"log"
-	"planet/env"
-	//"net/http"
 	"reflect"
 	"time"
 )
 
-var (
-	host = env.Config.GetString("Rbmq.Ip")
-	port =  env.Config.GetString("Rbmq.Port")
-	username = env.Config.GetString("Rbmq.UserName")
-	password = env.Config.GetString("Rbmq.Password")
-	vhost = env.Config.GetString("Rbmq.Vhost")
-	retry = env.Config.GetInt("Rbmq.Retry")
-)
+
 
 //Rbmq 结构体
 type Rbmq struct {
@@ -78,24 +69,15 @@ type ReceiverConfig struct {
 	IncludeHeader bool
 }
 
-//Mq 全局静态mq变量
-var Mq *Rbmq
+
 
 func init() {
-	if Mq == nil {
-		Mq = New().MakeConn()
-	}
+
 }
 
 //New 初始化默认
-func New() (q *Rbmq) {
-	qConfig := ConnConfig{
-		Host:     host,
-		Port:     port,
-		User:     username,
-		Password: password,
-		Vhost:    vhost,
-	}
+func New(qConfig ConnConfig) (q *Rbmq) {
+
 	q = &Rbmq{config: qConfig}
 	q.Priority = "8"
 	q.MsgHeader = make(map[string]interface{}, 10)
@@ -103,6 +85,7 @@ func New() (q *Rbmq) {
 	if len(appid) > 0 {
 		q.MsgHeader["appid"] = appid
 	}
+	q  = q.MakeConn()
 	return
 }
 
@@ -121,7 +104,7 @@ func (q *Rbmq) connWatch(addr string) {
 		for q.tryConnect(addr) != nil {
 			err := q.tryConnect(addr)
 			log.Printf("connect false . retry... ： [%s]", err.Error())
-			x := retry
+			x := 600
 			tryWaitSecond := time.Duration(x) * time.Second
 			time.Sleep(tryWaitSecond)
 			//log.Printf("connect false . retry... ： [%s]", err.Error())
@@ -265,7 +248,7 @@ func (q *Rbmq) RunConsumers(Services []ConsumerSetting) {
 	}
 
 		//连接守护协程
-	go Mq.connWatch("amqp://" + Mq.config.User + ":" + Mq.config.Password + "@" + Mq.config.Host + ":" + Mq.config.Port + "/" + Mq.config.Vhost)
+	go q.connWatch("amqp://" + q.config.User + ":" + q.config.Password + "@" + q.config.Host + ":" + q.config.Port + "/" + q.config.Vhost)
 
 	for _, v := range Services {
 		for i := 0; i < v.Workers; i++ {
@@ -403,7 +386,7 @@ func (q *Rbmq) Consumer(vConsumer ConsumerSetting,ServiceMap map[string]Consumer
 	q.Destroy()
 	log.Printf("consumer queue: [%s] will connect latter...", vConsumer.QueueName)
 
-	tryWaitSecond := time.Duration(retry) * time.Second
+	tryWaitSecond := time.Duration(600) * time.Second
 	time.Sleep(tryWaitSecond)
 	go q.Consumer(vConsumer,ServiceMap)
 	//q.Destroy()

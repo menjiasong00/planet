@@ -8,7 +8,6 @@ import (
 	"planet/service"
 	//"planet/insecure"
 	"github.com/spf13/cobra"
-	"log"
 )
 
 
@@ -29,11 +28,17 @@ func init() {
 			Register:pb.RegisterTestServer,
 			HandlerFromEndpoint:pb.RegisterTestHandlerFromEndpoint,
 		},
-		{
+/*		{
 			Host:":"+grpcPort,
 			Server:&service.BasServer{},
 			Register:pb.RegisterBasServer,
 			HandlerFromEndpoint:pb.RegisterBasHandlerFromEndpoint,
+		},*/
+		{
+			Host:":"+grpcPort,
+			Server:&service.WebServer{},
+			Register:pb.RegisterWebServer,
+			HandlerFromEndpoint:pb.RegisterWebHandlerFromEndpoint,
 		},
 	}
 
@@ -53,7 +58,7 @@ func init() {
 		{
 			QueueName:"oa.employee.ihr",
 			RoutingKey:"oa.employee.entry",
-			Workers:2,
+			Workers:1,
 			Service:&service.TestServer{},
 			Controller:"GetTestMsg",
 			Request:&pb.TestMessage{},
@@ -71,9 +76,11 @@ var serveCmd = &cobra.Command{
 	Use:   "serve",
 	Short: "Launches the example webserver on  "+demoAddr,
 	Run: func(cmd *cobra.Command, args []string) {
-		//grbmq.Mq.RunConsumers(ConsumerSettings)
-		log.Printf("",args)
-		log.Printf("",ConsumerSettings)
+
+		/*var rbmqConfig grbmq.ConnConfig
+		env.ScanConfig("Rbmq",&rbmqConfig)
+		grbmq.New(rbmqConfig).RunConsumers(ConsumerSettings)*/
+
 		go gcore.RunServeGRPC(ServerSettings,grpcPort)
 		gcore.RunServeHTTP(ServerSettings,httpPort)
 		//gcore.MakeInsecure(insecure.Key,insecure.Cert)

@@ -12,9 +12,9 @@ Mysql:
   Port: "3306"
   Db: "test"
 Rbmq:
-  UserName: "guest"
+  User: "guest"
   Password: "guest"
-  Ip: "127.0.0.1"
+  Host: "127.0.0.1"
   Port: "5672"
   Vhost: ""
   Retry: 600

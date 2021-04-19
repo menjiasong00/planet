@@ -159,3 +159,24 @@ func ScanStuct(in interface{}, out interface{}) {
 	body, _ := json.Marshal(&in)
 	json.Unmarshal(body, &out)
 }
+func StrToInt(str string) int {
+	tmpID, err := strconv.Atoi(str)
+	if err != nil {
+		return 0
+	}
+	return tmpID
+}
+
+func StrToFlout(in string) float64 {
+	f, _ := strconv.ParseFloat(in, 32)
+	return f
+}
+// InIface给定的字符串是否在字符串切片中。
+func StrInIface(v string, sl []string) bool {
+	for _, vv := range sl {
+		if vv == v {
+			return true
+		}
+	}
+	return false
+}

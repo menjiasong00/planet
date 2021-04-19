@@ -1,6 +1,7 @@
 package env
 
 import (
+	"encoding/json"
 	"github.com/spf13/viper"
 )
 
@@ -23,4 +24,11 @@ func init() {
 
 	}
 
+}
+
+//ScanStuct 结构体扫到结构体
+func ScanConfig(inConfig string, out interface{})  {
+	ConfigMap := Config.GetStringMap(inConfig)
+	body, _ := json.Marshal(&ConfigMap)
+	json.Unmarshal(body, &out)
 }
