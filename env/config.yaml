@@ -1,16 +1,42 @@
 TimeStamp: "2018-10-18 10:09:23"
 Address: "Shenzhen"
 Postcode: 518000
+
 Server:
-  GrpcPort: "50050"
-  HttpPort: "8080"
-  IsOpen: false
+  Bas:
+    GrpcPort: "50050"
+    HttpPort: "8080"
+  Pro:
+    GrpcPort: "50051"
+    HttpPort: "8081"
+  Usr:
+    GrpcPort: "50052"
+    HttpPort: "8082"
+  GateWay:
+    GrpcPort: "50050"
+    HttpPort: "8080"
+  Dev:
+    GrpcPort: "50050"
+    HttpPort: "8080"
 Mysql:
-  UserName: "root"
-  Password: "root"
-  Ip: "127.0.0.1"
-  Port: "3306"
-  Db: "test"
+  Pro:
+    User: "root"
+    Password: "root"
+    Host: "127.0.0.1"
+    Port: "3306"
+    Db: "app_pro"
+  Bas:
+    User: "root"
+    Password: "root"
+    Host: "127.0.0.1"
+    Port: "3306"
+    Db: "app_bas"
+  Usr:
+    User: "root"
+    Password: "root"
+    Host: "127.0.0.1"
+    Port: "3306"
+    Db: "app_usr"
 Rbmq:
   User: "guest"
   Password: "guest"

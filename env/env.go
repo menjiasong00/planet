@@ -31,4 +31,6 @@ func ScanConfig(inConfig string, out interface{})  {
 	ConfigMap := Config.GetStringMap(inConfig)
 	body, _ := json.Marshal(&ConfigMap)
 	json.Unmarshal(body, &out)
+
+
 }

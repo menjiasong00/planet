@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"github.com/golang/glog"
 	"github.com/grpc-ecosystem/go-grpc-middleware"
+	grpc_zap "github.com/grpc-ecosystem/go-grpc-middleware/logging/zap"
 	"github.com/grpc-ecosystem/go-grpc-middleware/recovery"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tags"
 	"github.com/grpc-ecosystem/go-grpc-middleware/tracing/opentracing"
@@ -82,10 +83,10 @@ func RunServeGRPC(servers []ServeSetting,port string) {
 	log.Printf("listen grpc on "+PORT)
 	
 	//open tracing
-	//tracer, _, err2 := NewJaegerTracer("test")
-	//if err2 != nil {
-	//	grpclog.Errorf("new tracer err %v , continue", err2)
-	//}
+/*	tracer, _, err2 := NewJaegerTracer("test")
+	if err2 != nil {
+		grpclog.Errorf("new tracer err %v , continue", err2)
+	}*/
 
 	//GRPC 扩展
 	var servOpts = []grpc.ServerOption{
@@ -106,19 +107,21 @@ func RunServeGRPC(servers []ServeSetting,port string) {
 			grpc_ctxtags.StreamServerInterceptor(),
 			grpc_opentracing.StreamServerInterceptor(),
 			//grpc_prometheus.StreamServerInterceptor,
-			//grpc_zap.StreamServerInterceptor(zapLogger),
-			//grpc_auth.StreamServerInterceptor(myAuthFunction),
-			grpc_recovery.StreamServerInterceptor(),
+			grpc_zap.StreamServerInterceptor(ZapInterceptor()),
+			//grpc_auth.StreamServerInterceptor(AuthInterceptor),
+			grpc_recovery.StreamServerInterceptor(RecoveryInterceptor()),
+
 		)),
 		grpc.UnaryInterceptor(grpc_middleware.ChainUnaryServer(
 			grpc_ctxtags.UnaryServerInterceptor(),
 			grpc_opentracing.UnaryServerInterceptor(),
 			//grpc_prometheus.UnaryServerInterceptor,
-			//grpc_zap.UnaryServerInterceptor(zapLogger),
-			//grpc_auth.UnaryServerInterceptor(myAuthFunction),
+			grpc_zap.UnaryServerInterceptor(ZapInterceptor()),//日志
+			//grpc_auth.UnaryServerInterceptor(AuthInterceptor),//鉴权
 			//plugins.OpentracingServerInterceptor(tracer),
 			//grpc.UnaryServerInterceptor(checkauth),//登录检查
-			grpc_recovery.UnaryServerInterceptor(),
+			grpc_recovery.UnaryServerInterceptor(RecoveryInterceptor()),//panic判断
+			ProtocValidateInterceptor(),//表单验证
 		)),
 	}
 
@@ -138,32 +141,6 @@ func RunServeGRPC(servers []ServeSetting,port string) {
 	}
 
 }
-
-//NewJaegerTracer 初始化调用跟踪
-/*func NewJaegerTracer(serviceName string) (tracer opentracing.Tracer, closer io.Closer, err error) {
-	cfg := jaegerCfg.Configuration{
-		Sampler: &jaegerCfg.SamplerConfig{
-			Type:  "const",
-			Param: 1,
-		},
-		Reporter: &jaegerCfg.ReporterConfig{
-			LogSpans:            true,
-			BufferFlushInterval: 1 * time.Second,
-			LocalAgentHostPort:  "jaegertracing:6831",
-		},
-	}
-	tracer, closer, err = cfg.New(
-		serviceName,
-		jaegerCfg.Logger(jaeger.StdLogger),
-	)
-	//defer closer.Close()
-
-	if err != nil {
-		return
-	}
-	opentracing.SetGlobalTracer(tracer)
-	return
-}*/
 
 func checkauth(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo, handler grpc.UnaryHandler) (resp interface{}, err error) {
 	md, ok := metadata.FromIncomingContext(ctx)
@@ -214,11 +191,6 @@ func checkauth(ctx context.Context, req interface{}, info *grpc.UnaryServerInfo,
     // 继续处理请求
     return handler(ctx, req)
 }
-
-
-
-
-
 
 
 // Don't do this without consideration in production systems.

@@ -2,10 +2,11 @@ package service
 
 import (
 	"golang.org/x/net/context"
-	"planet/pkg/gmysql"
+
 	"planet/model"
 	"planet/pb"
 	"planet/pkg/tools"
+	db "planet/env/db"
 )
 
 type {{.ServerName}}Server struct{}
@@ -15,7 +16,7 @@ func (s *{{.ServerName}}Server) {{.ModuleName}}List(ctx context.Context, in *pb.
 
 	resp := &pb.{{.ModuleName}}List{}
 
-	dbModel := gmysql.DB.Model(model.{{.ModelName}}{})
+	dbModel := db.New("{{.DbName}}").Model(model.{{.ModelName}}{})
 
 /*	if len(in.Name) > 0 {
 		dbModel=dbModel.Where("  name like ?","%"+in.Name+"%")
@@ -48,7 +49,7 @@ func (s *{{.ServerName}}Server) {{.ModuleName}}List(ctx context.Context, in *pb.
 func (s *{{.ServerName}}Server) {{.ModuleName}}Detail(ctx context.Context, in *pb.{{.ModuleName}}IdRequest) (*pb.{{.ModuleName}}DetailResponse, error) {
 
 	resp := &pb.{{.ModuleName}}OneRequest{}
-	gmysql.DB.Model(model.{{.ModelName}}{}).Where("id = ?",in.Id).Scan(&resp)
+	db.New("{{.DbName}}").Model(model.{{.ModelName}}{}).Where("id = ?",in.Id).Scan(&resp)
 
 	return &pb.{{.ModuleName}}DetailResponse{Status: 200, Message: "success", Details: resp}, nil
 }
@@ -66,7 +67,7 @@ func (s *{{.ServerName}}Server) {{.ModuleName}}Create(ctx context.Context, in *p
 	{{.ModuleName}}One := model.{{.ModelName}}{}
 	tools.ScanStuct(in,&{{.ModuleName}}One)
 
-	gmysql.DB.Create(&{{.ModuleName}}One)
+	db.New("{{.DbName}}").Create(&{{.ModuleName}}One)
 
 	return &pb.{{.ModuleName}}Response{Status: 200, Message: "success", Details:true}, nil
 }
@@ -81,10 +82,10 @@ func (s *{{.ServerName}}Server) {{.ModuleName}}Motify(ctx context.Context, in *p
     }
 
 	{{.ModuleName}}One := model.{{.ModelName}}{}
-	gmysql.DB.Model(model.{{.ModelName}}{}).Where("id = ?",in.Id).Find(&{{.ModuleName}}One)
+	db.New("{{.DbName}}").Model(model.{{.ModelName}}{}).Where("id = ?",in.Id).Find(&{{.ModuleName}}One)
 	tools.ScanStuct(in,&{{.ModuleName}}One)
 
-	gmysql.DB.Model(model.{{.ModelName}}{}).Where(" id = ?",in.Id).Save(&{{.ModuleName}}One)
+	db.New("{{.DbName}}").Model(model.{{.ModelName}}{}).Where(" id = ?",in.Id).Save(&{{.ModuleName}}One)
 
 	return &pb.{{.ModuleName}}Response{Status: 200, Message: "success", Details:true}, nil
 }
@@ -93,9 +94,9 @@ func (s *{{.ServerName}}Server) {{.ModuleName}}Motify(ctx context.Context, in *p
 func (s *{{.ServerName}}Server) {{.ModuleName}}Delete(ctx context.Context, in *pb.{{.ModuleName}}IdRequest) (*pb.{{.ModuleName}}Response, error) {
 
     {{.ModuleName}}One := model.{{.ModelName}}{}
-    gmysql.DB.Model(model.{{.ModelName}}{}).First(&{{.ModuleName}}One,in.Id)
+    db.New("{{.DbName}}").Model(model.{{.ModelName}}{}).First(&{{.ModuleName}}One,in.Id)
     //{{.ModuleName}}One.Status = 2
-    gmysql.DB.Save(&{{.ModuleName}}One)
+    db.New("{{.DbName}}").Save(&{{.ModuleName}}One)
 	
 	return &pb.{{.ModuleName}}Response{Status: 200, Message: "success", Details:true}, nil
 }

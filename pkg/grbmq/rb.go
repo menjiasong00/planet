@@ -45,11 +45,11 @@ type ConnConfig struct {
 //Consumer消费者配置项
 type ConsumerSetting struct {
 	QueueName   string
-	Workers     int
 	RoutingKey    string
 	Service   interface{}
 	Controller        string
 	Request   interface{}
+	Workers     int
 	//以下特殊配置配置
 	Config ReceiverConfig
 }

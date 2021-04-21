@@ -1,6 +1,7 @@
 package service
 
 import (
+	db "planet/env/db"
 	"planet/model"
 	"planet/pkg/gmysql"
 	"planet/pkg/grule/engine"
@@ -93,7 +94,7 @@ func (s *TestServer) DlxConsumer(ctx context.Context, in *pb.DlxConsumerRequest)
 	}
 
 
-	err:= gmysql.DB.Save(&newBasMqDlx).Error
+	err:= db.New("Bas").Save(&newBasMqDlx).Error
 
 	if err !=nil {
 		return &pb.BaseResponse{}, err
@@ -103,14 +104,14 @@ func (s *TestServer) DlxConsumer(ctx context.Context, in *pb.DlxConsumerRequest)
 }
 */
 
-
+ 
 func RunRulesResult(gruleId int,inWhere string) error{
 
 	//入参列表
 	var listGrule model.IhrGrule
-	gmysql.DB.Where("`id` = ?",gruleId).First(&listGrule)
+	db.New("Bas").Where("`id` = ?",gruleId).First(&listGrule)
 	inSql:= listGrule.InSql +" AND  "+ inWhere
-	mapList, err2 := gmysql.MapByQuery(gmysql.DB.DB(), inSql, "string")
+	mapList, err2 := gmysql.MapByQuery(db.New("Bas").DB(), inSql, "string")
 	//fmt.Println(inSql)
 	if err2!=nil {
 		return err2
@@ -118,15 +119,15 @@ func RunRulesResult(gruleId int,inWhere string) error{
 
 	//对象配置
 	var listGruleObjects []model.IhrGruleObject
-	gmysql.DB.Where("(`class` = ?  or code = 'person') and type in (1,2)",listGrule.Class).Find(&listGruleObjects)
+	db.New("Bas").Where("(`class` = ?  or code = 'person') and type in (1,2)",listGrule.Class).Find(&listGruleObjects)
 
 	//变量配置
 	var listGruleItems []model.IhrGruleItem
-	gmysql.DB.Table("ihr_grule_item").Where("  (`class` = ? or type=9 or object= 'person')   AND status = 1",listGrule.Class).Order("`type`asc,sort asc").Find(&listGruleItems)
+	db.New("Bas").Table("ihr_grule_item").Where("  (`class` = ? or type=9 or object= 'person')   AND status = 1",listGrule.Class).Order("`type`asc,sort asc").Find(&listGruleItems)
 
 	//规则配置
 	var listGruleFormual []model.IhrGruleFormual
-	gmysql.DB.Table("ihr_grule_formual").Where("`grule_id` = ? AND status = 1",listGrule.Id).Order("sort asc").Find(&listGruleFormual)
+	db.New("Bas").Table("ihr_grule_formual").Where("`grule_id` = ? AND status = 1",listGrule.Id).Order("sort asc").Find(&listGruleFormual)
 
 	poolMap:= make(map[int]*engine.GenginePool,0 )
 
@@ -169,7 +170,7 @@ end
 			for kp,vp := range v{
 				vo.FormualSql = strings.Replace(vo.FormualSql,"{"+kp+"}","'"+tools.Strval(vp)+"'",-1)
 			}
-			mapList, err2 := gmysql.MapByQuery(gmysql.DB.DB(), vo.FormualSql, "string")
+			mapList, err2 := gmysql.MapByQuery(db.New("Bas").DB(), vo.FormualSql, "string")
 			if err2 != nil {
 			}
 			if len(mapList) > 0  && vo.Type == 1 {
@@ -303,7 +304,7 @@ end
 	}
 
 
-	err3 := gmysql.ReplaceInsertMany(gmysql.DB.DB(),listGrule.OutTable,insertList)
+	err3 := gmysql.ReplaceInsertMany(db.New("Bas").DB(),listGrule.OutTable,insertList)
 	if err3!= nil {
 		return err3
 	}

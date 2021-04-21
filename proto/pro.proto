@@ -1,0 +1,116 @@
+syntax = "proto3";
+package pb;
+
+import "google/api/annotations.proto";
+option go_package = "./;pb";
+//import "validate/validate.proto";
+
+//商品
+service Pro{
+
+    //商品列表
+    rpc ProductList (ProductListRequest) returns (ProductListResponse) {
+        option (google.api.http) = {
+            get: "/pro/product"
+		};
+    }
+
+    //商品详情
+    rpc ProductDetail (ProductIdRequest) returns (ProductDetailResponse) {
+        option (google.api.http) = {
+            get: "/pro/product/{id}"
+		};
+    }
+
+    //商品创建
+    rpc ProductCreate(ProductOneRequest) returns (ProductResponse) {
+        option (google.api.http) = {
+            post: "/pro/product"
+            body: "*"
+		};
+    }
+
+    //商品修改
+    rpc ProductMotify(ProductOneRequest) returns (ProductResponse) {
+        option (google.api.http) = {
+            put: "/pro/product"
+            body: "*"
+		};
+    }
+
+    //商品删除
+    rpc ProductDelete(ProductIdRequest) returns (ProductResponse) {
+        option (google.api.http) = {
+            delete: "/pro/product"
+		};
+    }
+}
+
+//商品通用
+message ProductResponse{
+    int32 status = 1;
+    string message = 2;
+       //bool data = 3;
+    int32 code = 4;
+    string error = 5;
+    bool details = 6;
+}
+
+//商品列表
+message ProductListRequest{
+    //每页多少个
+    int32 pageSize = 100;
+    //页码
+    int32 pageNumber = 101;
+    //排序字段
+    string orderKey =102;
+    //排序方式
+    string orderSort =103;
+}
+
+message ProductListResponse{
+    int32 status = 1;
+    string message = 2;
+    //ProductList data = 3;
+    int32 code = 4;
+    string error = 5;
+    ProductList  details = 6;
+}
+
+message ProductList {
+    //总数
+    int32 total = 1;
+    //列表
+    repeated ProductOneRequest list = 2;
+}
+
+//商品结构
+message ProductOneRequest {
+    //
+    int32 id =1;
+    //
+    string createdAt =2;
+    //
+    string updatedAt =3;
+    //
+    string deletedAt =4;
+    //
+    string code =5;
+    //
+    int32 price =6;
+    
+}
+
+//商品详情
+message ProductIdRequest{
+    int32 id =1;
+}
+
+message ProductDetailResponse{
+    int32 status = 1;
+    string message = 2;
+    //ProductOneRequest data = 3;
+    int32 code = 4;
+    string error = 5;
+    ProductOneRequest  details = 6;
+}

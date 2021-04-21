@@ -1,16 +1,14 @@
 package cmd
 
 import (
+	"github.com/spf13/cobra"
 	//"os"
 	//"strings"
-
-	"github.com/spf13/cobra"
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 	"google.golang.org/grpc/credentials"
 	"google.golang.org/grpc/grpclog"
-
-	pb "planet/pb"
+	"planet/pb"
 )
 
 // echoCmd represents the echo command
@@ -26,9 +24,9 @@ var echoCmd = &cobra.Command{
 			grpclog.Fatalf("fail to dial: %v", err)
 		}
 		defer conn.Close()
-		client := pb.NewEchoServiceClient(conn)
+		client := pb.NewTestClient(conn)
 
-		msg, err := client.Echo(context.Background(), &pb.EchoMessage{})
+		msg, err := client.GetTestMsg(context.Background(), &pb.TestMessage{})
 		println(msg.Value)
 
 	},

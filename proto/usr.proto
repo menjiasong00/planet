@@ -1,0 +1,110 @@
+syntax = "proto3";
+package pb;
+
+import "google/api/annotations.proto";
+option go_package = "./;pb";
+//import "validate/validate.proto";
+
+//用户
+service Usr{
+
+    //用户列表
+    rpc UserList (UserListRequest) returns (UserListResponse) {
+        option (google.api.http) = {
+            get: "/usr/user"
+		};
+    }
+
+    //用户详情
+    rpc UserDetail (UserIdRequest) returns (UserDetailResponse) {
+        option (google.api.http) = {
+            get: "/usr/user/{id}"
+		};
+    }
+
+    //用户创建
+    rpc UserCreate(UserOneRequest) returns (UserResponse) {
+        option (google.api.http) = {
+            post: "/usr/user"
+            body: "*"
+		};
+    }
+
+    //用户修改
+    rpc UserMotify(UserOneRequest) returns (UserResponse) {
+        option (google.api.http) = {
+            put: "/usr/user"
+            body: "*"
+		};
+    }
+
+    //用户删除
+    rpc UserDelete(UserIdRequest) returns (UserResponse) {
+        option (google.api.http) = {
+            delete: "/usr/user"
+		};
+    }
+}
+
+//用户通用
+message UserResponse{
+    int32 status = 1;
+    string message = 2;
+       //bool data = 3;
+    int32 code = 4;
+    string error = 5;
+    bool details = 6;
+}
+
+//用户列表
+message UserListRequest{
+    //每页多少个
+    int32 pageSize = 100;
+    //页码
+    int32 pageNumber = 101;
+    //排序字段
+    string orderKey =102;
+    //排序方式
+    string orderSort =103;
+}
+
+message UserListResponse{
+    int32 status = 1;
+    string message = 2;
+    //UserList data = 3;
+    int32 code = 4;
+    string error = 5;
+    UserList  details = 6;
+}
+
+message UserList {
+    //总数
+    int32 total = 1;
+    //列表
+    repeated UserOneRequest list = 2;
+}
+
+//用户结构
+message UserOneRequest {
+    //
+    string id =1;
+    //
+    string name =2;
+    //
+    string password =3;
+    
+}
+
+//用户详情
+message UserIdRequest{
+    int32 id =1;
+}
+
+message UserDetailResponse{
+    int32 status = 1;
+    string message = 2;
+    //UserOneRequest data = 3;
+    int32 code = 4;
+    string error = 5;
+    UserOneRequest  details = 6;
+}

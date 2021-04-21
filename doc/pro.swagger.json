@@ -1,0 +1,342 @@
+{
+  "swagger": "2.0",
+  "info": {
+    "title": "pro.proto",
+    "version": "version not set"
+  },
+  "consumes": [
+    "application/json"
+  ],
+  "produces": [
+    "application/json"
+  ],
+  "paths": {
+    "/pro/product": {
+      "get": {
+        "summary": "商品列表",
+        "operationId": "Pro_ProductList",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbProductListResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "pageSize",
+            "description": "每页多少个.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "pageNumber",
+            "description": "页码.",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          },
+          {
+            "name": "orderKey",
+            "description": "排序字段.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          },
+          {
+            "name": "orderSort",
+            "description": "排序方式.",
+            "in": "query",
+            "required": false,
+            "type": "string"
+          }
+        ],
+        "tags": [
+          "Pro"
+        ]
+      },
+      "delete": {
+        "summary": "商品删除",
+        "operationId": "Pro_ProductDelete",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbProductResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "query",
+            "required": false,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Pro"
+        ]
+      },
+      "post": {
+        "summary": "商品创建",
+        "operationId": "Pro_ProductCreate",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbProductResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbProductOneRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Pro"
+        ]
+      },
+      "put": {
+        "summary": "商品修改",
+        "operationId": "Pro_ProductMotify",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbProductResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "body",
+            "in": "body",
+            "required": true,
+            "schema": {
+              "$ref": "#/definitions/pbProductOneRequest"
+            }
+          }
+        ],
+        "tags": [
+          "Pro"
+        ]
+      }
+    },
+    "/pro/product/{id}": {
+      "get": {
+        "summary": "商品详情",
+        "operationId": "Pro_ProductDetail",
+        "responses": {
+          "200": {
+            "description": "A successful response.",
+            "schema": {
+              "$ref": "#/definitions/pbProductDetailResponse"
+            }
+          },
+          "default": {
+            "description": "An unexpected error response.",
+            "schema": {
+              "$ref": "#/definitions/runtimeError"
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "type": "integer",
+            "format": "int32"
+          }
+        ],
+        "tags": [
+          "Pro"
+        ]
+      }
+    }
+  },
+  "definitions": {
+    "pbProductDetailResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "ProductOneRequest data = 3;"
+        },
+        "error": {
+          "type": "string"
+        },
+        "details": {
+          "$ref": "#/definitions/pbProductOneRequest"
+        }
+      }
+    },
+    "pbProductList": {
+      "type": "object",
+      "properties": {
+        "total": {
+          "type": "integer",
+          "format": "int32",
+          "title": "总数"
+        },
+        "list": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/pbProductOneRequest"
+          },
+          "title": "列表"
+        }
+      }
+    },
+    "pbProductListResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "ProductList data = 3;"
+        },
+        "error": {
+          "type": "string"
+        },
+        "details": {
+          "$ref": "#/definitions/pbProductList"
+        }
+      }
+    },
+    "pbProductOneRequest": {
+      "type": "object",
+      "properties": {
+        "id": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "createdAt": {
+          "type": "string"
+        },
+        "updatedAt": {
+          "type": "string"
+        },
+        "deletedAt": {
+          "type": "string"
+        },
+        "code": {
+          "type": "string"
+        },
+        "price": {
+          "type": "integer",
+          "format": "int32"
+        }
+      },
+      "title": "商品结构"
+    },
+    "pbProductResponse": {
+      "type": "object",
+      "properties": {
+        "status": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32",
+          "title": "bool data = 3;"
+        },
+        "error": {
+          "type": "string"
+        },
+        "details": {
+          "type": "boolean"
+        }
+      },
+      "title": "商品通用"
+    },
+    "protobufAny": {
+      "type": "object",
+      "properties": {
+        "type_url": {
+          "type": "string"
+        },
+        "value": {
+          "type": "string",
+          "format": "byte"
+        }
+      }
+    },
+    "runtimeError": {
+      "type": "object",
+      "properties": {
+        "error": {
+          "type": "string"
+        },
+        "code": {
+          "type": "integer",
+          "format": "int32"
+        },
+        "message": {
+          "type": "string"
+        },
+        "details": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/protobufAny"
+          }
+        }
+      }
+    }
+  }
+}

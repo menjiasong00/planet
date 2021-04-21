@@ -14,11 +14,12 @@ func (m *TestServer) GetTestMsg(c context.Context, s *pb.TestMessage) (*pb.TestM
 	fmt.Printf("xxxxx(%q)\n", s.Value)
 	//RunRulesResult(1," 1=1  ")
 	gcode.MakeCoding(gcode.MakeCodingRequest{
-		DatabaseName:"test",
-		TableName:"products",
-		Name:"产品",
-		ServerName:"Web",
-		ModuleName:"Products",
+		DatabaseName:"app_pro",
+		TableName:"pro_products",
+		Name:"商品",
+		ServerName:"Pro",
+		ModuleName:"Product",
+		Env: "Pro",
 	})
 	return s, nil
 }

@@ -1,12 +1,10 @@
 package gcode
 
 import (
-
 	"os"
-
-	"strings"
+	db "planet/env/db"
 	"planet/pkg/tools"
-	"planet/pkg/gmysql"
+	"strings"
 	"text/template"
 )
 
@@ -16,6 +14,7 @@ type MakeCodingRequest struct {
 	TableName            string
 	Name                 string
 	DatabaseName         string
+	Env           string
 
 }
 
@@ -26,7 +25,7 @@ func  MakeCoding( in MakeCodingRequest)  {
 
 	//sweaters := Inventory{"BasInfo", "Item", "BasInfoClassItemT","basInfo", "item"}
 
-	sweaters := Inventory{in.Name,in.ServerName, in.ModuleName,"" ,"",in.TableName,nil,""}
+	sweaters := Inventory{in.Name,in.ServerName, in.ModuleName,"" ,"",in.TableName,nil,in.Env}
 
 	moduleNameSnake := tools.SnakeString(sweaters.ModuleName)
 	serverNameSnake := tools.SnakeString(sweaters.ServerName)
@@ -36,8 +35,9 @@ func  MakeCoding( in MakeCodingRequest)  {
 	//SELECT COLUMN_NAME as column_name, column_comment FROM INFORMATION_SCHEMA. COLUMNS WHERE table_name = 'bas_mq_dlx' AND table_schema = 'wos_common'
 
 	var result []SqlResult
+
 	// Raw SQL
-	gmysql.DB.Raw("SELECT COLUMN_NAME as column_name,data_type, column_comment FROM INFORMATION_SCHEMA. COLUMNS WHERE table_name = ? AND table_schema = ?", sweaters.TableName,in.DatabaseName).Scan(&result)
+	db.New(in.Env).Raw("SELECT COLUMN_NAME as column_name,data_type, column_comment FROM INFORMATION_SCHEMA. COLUMNS WHERE table_name = ? AND table_schema = ?", sweaters.TableName,in.DatabaseName).Scan(&result)
 	i := 1
 	for k,v:= range result {
 		result[k].ColumnNameCamel = tools.SnakeToCamel(v.ColumnName)
@@ -72,7 +72,7 @@ func  MakeCoding( in MakeCodingRequest)  {
 	}
 
 	sweaters.Columns = result
-	sweaters.DbName  = tools.SnakeToBigCamel(strings.Replace(in.DatabaseName,"wos_","",-1))
+	//sweaters.DbName  = tools.SnakeToBigCamel(strings.Replace(in.DatabaseName,"wos_","",-1))
 	serverNameCamel := tools.SnakeToCamel(serverNameSnake)
 
 	MakeFile(sweaters,"./pkg/gcode/model.go.tpl","./model/"+sweaters.TableName+".go-")

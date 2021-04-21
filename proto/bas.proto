@@ -5,7 +5,16 @@ package pb;
 option go_package = "./;pb";
 //import "validate/validate.proto";
 
-//产品
+//基础
 service Bas{
+
+}
+
+message DlxConsumerRequest{
+    string header =1;
+    string body =2;
+}
+
+message BaseResponse{
 
 }

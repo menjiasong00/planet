@@ -4,42 +4,17 @@ import (
 	"bytes"
 	"database/sql"
 	"fmt"
-	"planet/env"
-	"strings"
-	"planet/pkg/tools"
 	"github.com/jinzhu/gorm"
 	_ "github.com/jinzhu/gorm/dialects/mysql"
+	"planet/pkg/tools"
+	"strings"
+	"sync"
 )
-
-var (
-	userName = env.Config.GetString("Mysql.UserName")
-	password = env.Config.GetString("Mysql.Password")
-	ip = env.Config.GetString("Mysql.Ip")
-	port = env.Config.GetString("Mysql.Port")
-	dbName = env.Config.GetString("Mysql.Db")
-)
-
-var DB *gorm.DB
-
-func init() {
-	var err error
-	DB, err = gorm.Open(
-		"mysql",
-		fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-			userName,
-			password,
-			ip+":"+port,
-			dbName))
-	if err != nil {
-		panic(err)
-	}
-	DB.LogMode(true)
-}
 
 type ConnConfig struct {
 	Host     string
 	Port     string
-	UserName     string
+	User     string
 	Password string
 	DB    string
 }
@@ -49,7 +24,7 @@ func New(qConfig ConnConfig) (DB *gorm.DB) {
 	DB, err = gorm.Open(
 		"mysql",
 		fmt.Sprintf("%s:%s@tcp(%s)/%s?charset=utf8mb4&parseTime=True&loc=Local",
-			qConfig.UserName,
+			qConfig.User,
 			qConfig.Password,
 			qConfig.Host+":"+qConfig.Port,
 			qConfig.DB))
@@ -60,6 +35,23 @@ func New(qConfig ConnConfig) (DB *gorm.DB) {
 	return DB
 }
 
+type Pool struct {
+	db *gorm.DB
+}
+var once sync.Once
+var instance *Pool
+
+// GetInstance go单例模式
+func GetInstance() *Pool {
+	once.Do(func() {
+		instance = &Pool{}
+	})
+	return instance
+}
+
+func (c *Pool) getDBConn() error {
+	return nil
+}
 
 //list ,err := gmysql.MapByQuery(gmysql.DB.DB(),"select * from products","string")
 //StringMapByQuery 查询sql后返回 []map[string]interface{} 字符串map数组 (columnsType == string 二进制值转字符串)
