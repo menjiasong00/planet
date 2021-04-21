@@ -1,7 +1,6 @@
 TimeStamp: "2018-10-18 10:09:23"
 Address: "Shenzhen"
 Postcode: 518000
-
 Server:
   Bas:
     GrpcPort: "50050"
@@ -12,6 +11,9 @@ Server:
   Usr:
     GrpcPort: "50052"
     HttpPort: "8082"
+  Ord:
+    GrpcPort: "50053"
+    HttpPort: "8083"
   GateWay:
     GrpcPort: "50050"
     HttpPort: "8080"
@@ -31,6 +33,12 @@ Mysql:
     Host: "127.0.0.1"
     Port: "3306"
     Db: "app_bas"
+  Ord:
+    User: "root"
+    Password: "root"
+    Host: "127.0.0.1"
+    Port: "3306"
+    Db: "app_ord"
   Usr:
     User: "root"
     Password: "root"
