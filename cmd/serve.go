@@ -26,19 +26,13 @@ var serveCmd = &cobra.Command{
 				//网关
 				gcore.RunServeHTTP(server.ConfigServer(servFlag),httpPort)
 			}else{
-				//各个服务
+				//各个rpc服务
+				gcore.RunServeGRPC(server.ConfigServer(servFlag),grpcPort)
 				/*var rbmqConfig grbmq.ConnConfig
 				env.ScanConfig("Rbmq",&rbmqConfig)
 				grbmq.New(rbmqConfig).RunConsumers(mq.ConfigConsumer)*/
-				gcore.RunServeGRPC(server.ConfigServer(servFlag),grpcPort)
-
 			}
 		}
-
-
-
-
-
 	},
 }
 
@@ -56,7 +50,7 @@ var DevCmd = &cobra.Command{
 		/*var rbmqConfig grbmq.ConnConfig
 		env.ScanConfig("Rbmq",&rbmqConfig)
 		grbmq.New(rbmqConfig).RunConsumers(mq.ConfigConsumer)*/
-
+		//注册所有
 		go gcore.RunServeGRPC(server.ConfigServer(servFlag),grpcPort)
 		gcore.RunServeHTTP(server.ConfigServer(servFlag),httpPort)
 		//gcore.MakeInsecure(insecure.Key,insecure.Cert)
